@@ -11,8 +11,11 @@
   color: white;
 }
 
-.navbar .navbar-toggler .navbar-toggler-icon {
+.navbar .navbar-toggler {
   color: #ffffff;
+  border-color: white;
+  border-style: solid;
+  border-width: 3px;
 }
 .logo {
   width: 90px;
