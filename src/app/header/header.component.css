@@ -1,0 +1,29 @@
+.navbar {
+  background-color: #173499;
+  color: white;
+}
+
+.navbar .navbar-brand {
+  color: white;
+}
+
+.navbar .nav-item .nav-link {
+  color: white;
+}
+
+.navbar .navbar-toggler {
+  color: #ffffff;
+  border-color: white;
+  border-style: solid;
+  border-width: 3px;
+}
+.logo {
+  width: 90px;
+  height: 100%;
+  float: left;
+}
+
+.clinicTitle {
+  padding-top: 5px;
+  font-family: lato-regular;
+}
