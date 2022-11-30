@@ -4,28 +4,41 @@
       <div class="card">
         <h1 class="card-title text-center">Zaloguj się</h1>
         <div class="card-body">
-          <form>
+          <form [formGroup]="userLoginForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="email">Adres email</label>
               <input
                 type="email"
+                name="email"
                 class="form-control"
                 id="email"
-                aria-describedby="emailHelp"
                 placeholder="np. jan.kowalski@email.pl"
+                required
+                ngModel
+                email
+                formControlName="email"
               />
             </div>
             <div class="form-group mt-4">
               <label for="password">Hasło</label>
               <input
                 type="password"
+                name="password"
                 class="form-control"
                 id="password"
                 placeholder="Hasło"
+                required
+                ngModel
+                minlength="8"
+                formControlName="password"
               />
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-dark mt-4 form-control">
+              <button
+                type="submit"
+                class="btn btn-dark mt-4 form-control"
+                [disabled]="!userLoginForm.valid"
+              >
                 Zaloguj się
               </button>
             </div>
