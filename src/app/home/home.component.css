@@ -1,0 +1,82 @@
+.title {
+  font-family: lato-regular;
+  color: white;
+  margin-top: 50%;
+  font-weight: 900 !important;
+  font-size: 3.5vw;
+}
+
+.subtitle {
+  font-family: lato-regular;
+  color: white;
+  font-weight: 500 !important;
+  font-size: 1.5vw;
+  margin-bottom: 60%;
+}
+
+.title2 {
+  font-family: lato-bold;
+  font-weight: 900 !important;
+  font-size: 3.5vw;
+}
+
+.title3 {
+  font-family: lato-bold;
+  font-weight: 900 !important;
+  font-size: 2vw;
+}
+
+.text1 {
+  font-family: lato-regular;
+  font-size: 1.3vw;
+  font-weight: 500;
+}
+
+.fa {
+  color: black;
+  font-size: 4vw;
+}
+
+.vetOnline {
+  background-color: #173499;
+  color: white;
+  font-family: lato-regular;
+  font-size: 1.7vw;
+}
+
+.homeOnlineImg {
+  height: 100%;
+  max-width: 350px;
+  max-height: 350px;
+  border-radius: 100%;
+}
+@media screen and (max-width: 992px) {
+  .title {
+    margin-top: 40%;
+  }
+
+  .subtitle {
+    margin-bottom: 50%;
+  }
+
+  .fa {
+    font-size: 5vw;
+  }
+  .text1 {
+    font-size: 1.8vw;
+  }
+
+  .homeOnlineImg {
+    max-width: 260px;
+    max-height: 260px;
+  }
+}
+
+@media screen and (max-width: 572px) {
+  .homeOnlineImg {
+    height: 80%;
+    width: 80%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
