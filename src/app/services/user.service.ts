@@ -24,17 +24,15 @@ export class UserService {
       )
       .pipe(
         tap((responseData) => {
-          console.log(responseData.body);
-          console.log(responseData.headers);
           if (
             responseData.body !== null &&
-            responseData.headers.get('AuthToken') !== null
+            responseData.headers.get('authtoken') !== null
           ) {
             const user = new User(
               responseData.body.role,
               responseData.body.name,
               responseData.body.email,
-              responseData.headers.get('AuthToken')!
+              responseData.headers.get('authtoken')!
             );
             this.currentUser.next(user);
             localStorage.setItem('userData', JSON.stringify(user));
@@ -46,5 +44,25 @@ export class UserService {
     this.currentUser.next(null);
     localStorage.removeItem('userData');
   }
+
+  autoLogin() {
+    const userDataString = localStorage.getItem('userData');
+    if (!userDataString) return;
+    const userData: {
+      email: string;
+      name: string;
+      role: number;
+      token: string;
+    } = JSON.parse(userDataString);
+    if (!userData) return;
+    const loadedUser = new User(
+      userData.role,
+      userData.name,
+      userData.email,
+      userData.token
+    );
+    this.currentUser.next(loadedUser);
+  }
+
   constructor(private httpClient: HttpClient) {}
 }

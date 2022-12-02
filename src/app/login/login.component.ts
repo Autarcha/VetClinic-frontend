@@ -3,6 +3,8 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { AuthResult } from '../services/authModel';
 import { HttpStatusCode } from '@angular/common/http';
+import { AppRoutingModule } from '../app-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   onSubmit() {
@@ -34,7 +37,7 @@ export class LoginComponent {
       .subscribe(
         (result) => {
           this.userLoggedIn.emit(result.body!);
-          // window.location.href = '/';
+          this.router.navigate(['/home']);
         },
         (error) => {
           if (error.status === HttpStatusCode.NotFound) {
