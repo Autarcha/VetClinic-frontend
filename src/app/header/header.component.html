@@ -12,19 +12,19 @@
       class="navbar-toggler text-right"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#navbarNavDropdown"
+      data-bs-target="#navbarSupportedContent"
       aria-controls="navbarNavDropdown"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <div class="justify-content-end">
-        <span>Witaj {{ userName }}!</span>
-      </div>
       <span class="">
         <i class="fa fa-bars" style="color: white"></i>
       </span>
     </button>
-    <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+    <div
+      class="navbar-collapse collapse text-center"
+      id="navbarSupportedContent"
+    >
       <ul class="navbar-nav ms-auto flex-nowrap" *ngIf="!isAuthenticated">
         <li>
           <hr />
@@ -52,17 +52,10 @@
           <a class="nav-link" routerLink="login">Zaloguj się</a>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto flex-nowrap" *ngIf="isAuthenticated">
-        <li>
-          <hr />
-        </li>
-        <li
-          class="nav-item me-5"
-          disabled="isAuthenticated"
-          style="pointer-events: none"
-        >
-          <span class="nav-link">Witaj {{ userName }}!</span>
-        </li>
+      <ul
+        class="navbar-nav ms-auto flex-nowrap"
+        *ngIf="isAuthenticated && userRole == 4"
+      >
         <li>
           <hr />
         </li>
@@ -88,6 +81,16 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="login" (click)="logout()"
             >Wyloguj się</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          disabled="isAuthenticated"
+          style="pointer-events: none"
+          *ngIf="!isCollapsed"
+        >
+          <span class="nav-link" style="font-weight: bolder"
+            >Witaj {{ userName }}!</span
           >
         </li>
       </ul>

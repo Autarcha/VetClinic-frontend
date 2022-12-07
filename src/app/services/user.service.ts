@@ -4,6 +4,7 @@ import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { apiUrl } from '../app.module';
 import { User } from '../models/userModel';
 import { AuthResult } from './authModel';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -43,6 +44,7 @@ export class UserService {
   logoutUser() {
     this.currentUser.next(null);
     localStorage.removeItem('userData');
+    this.router.navigate(['/home']);
   }
 
   autoLogin() {
@@ -64,5 +66,5 @@ export class UserService {
     this.currentUser.next(loadedUser);
   }
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 }

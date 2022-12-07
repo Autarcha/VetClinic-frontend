@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  Component,
+  HostListener,
+  OnInit,
+} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
 
@@ -12,6 +17,7 @@ export class HeaderComponent implements OnInit {
   public isAuthenticated = false;
   public userName: string = '';
   public userRole: number = 0;
+  public isCollapsed = false;
 
   constructor(private userService: UserService) {}
 
@@ -25,6 +31,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();
+  }
+
+  public innerWidth: any;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+    this.isCollapsed = this.innerWidth < 992;
   }
 
   logout() {
