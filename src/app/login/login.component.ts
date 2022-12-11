@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { AuthResult } from '../services/authModel';
 import { HttpStatusCode } from '@angular/common/http';
@@ -17,8 +17,11 @@ export class LoginComponent {
   userNotFound: boolean = false;
 
   userLoginForm = this.formBuilder.group({
-    email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.minLength(8), Validators.required]],
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', [
+      Validators.minLength(8),
+      Validators.required,
+    ]),
   });
 
   constructor(
@@ -40,7 +43,7 @@ export class LoginComponent {
           this.router.navigate(['/home']);
         },
         (error) => {
-          if (error.status === HttpStatusCode.NotFound) {
+          if (error.status === 403) {
             this.userNotFound = true;
           }
         }
