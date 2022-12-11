@@ -1,0 +1,10 @@
+.row {
+  color: rgba(0, 0, 0, 0.7);
+}
+.card {
+  border-width: 3px;
+}
+.card-title {
+  font-family: lato-bold;
+  font-weight: 900;
+}

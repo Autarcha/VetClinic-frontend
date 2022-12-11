@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/authInterceptor';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AuthInterceptorService } from './auth/authInterceptor';
     FooterComponent,
     HomeComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

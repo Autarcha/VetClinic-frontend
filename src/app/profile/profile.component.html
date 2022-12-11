@@ -1,0 +1,130 @@
+<div class="container p-5">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card p-4">
+        <h1 class="card-title">Informacje podstawowe</h1>
+        <div class="card-body">
+          <form
+            class="col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12"
+            [formGroup]="userDetailsForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="form-group">
+              <label for="name">Imię</label>
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="name"
+                required
+                minlength="3"
+                ngModel
+                formControlName="name"
+              />
+            </div>
+            <div class="form-group mt-4">
+              <label for="surname">Nazwisko</label>
+              <input
+                type="text"
+                name="surname"
+                class="form-control"
+                id="surname"
+                required
+                minlength="3"
+                ngModel
+                formControlName="surname"
+              />
+            </div>
+            <div class="form-group mt-4">
+              <label for="email">Adres email</label>
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                id="email"
+                required
+                ngModel
+                email
+                formControlName="email"
+              />
+            </div>
+            <div class="form-group mt-4">
+              <label for="phoneNumber">Numer telefonu</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                class="form-control"
+                id="phoneNumber"
+                required
+                ngModel
+                minlength="9"
+                maxlength="9"
+                formControlName="phoneNumber"
+              />
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-dark mt-4 form-control">
+                Zapisz zmiany
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card p-4 mt-5">
+        <h1 class="card-title">Zmiana hasła</h1>
+        <div class="card-body">
+          <form
+            class="col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12"
+            [formGroup]="changePasswordForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="form-group">
+              <label for="oldPassword">Stare hasło</label>
+              <input
+                type="password"
+                name="oldPassword"
+                class="form-control"
+                id="oldPassword"
+                required
+                minlength="8"
+                ngModel
+                formControlName="oldPassword"
+              />
+            </div>
+            <div class="form-group mt-4">
+              <label for="newPassword">Nowe hasło</label>
+              <input
+                type="password"
+                name="newPassword"
+                class="form-control"
+                id="newPassword"
+                required
+                minlength="8"
+                ngModel
+                formControlName="newPassword"
+              />
+            </div>
+            <div class="form-group mt-4">
+              <label for="confirmPassword">Potwierdź hasło</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                class="form-control"
+                id="confirmPassword"
+                required
+                minlength="8"
+                ngModel
+                formControlName="confirmPassword"
+              />
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-dark mt-4 form-control">
+                Zmień hasło
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { apiUrl } from '../app.module';
-import { User } from '../models/userModel';
+import { User, UserDetails } from '../models/userModel';
 import { AuthResult } from './authModel';
 import { Router } from '@angular/router';
 
@@ -12,14 +12,14 @@ import { Router } from '@angular/router';
 export class UserService {
   currentUser = new BehaviorSubject<User | null>(null);
 
-  getUser(id: number) {
-    return this.httpClient.get<User>(apiUrl + '/user/' + id);
+  getUser() {
+    return this.httpClient.get<UserDetails>(apiUrl + '/Users/Profile');
   }
 
   loginUser(email: string, password: string) {
     return this.httpClient
       .post<AuthResult>(
-        apiUrl + '/User/login',
+        apiUrl + '/Users/Login',
         { email: email, password: password },
         { observe: 'response' }
       )
