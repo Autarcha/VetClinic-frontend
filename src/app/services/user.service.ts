@@ -16,6 +16,14 @@ export class UserService {
     return this.httpClient.get<UserDetails>(apiUrl + '/Users/Profile');
   }
 
+  updateUser(userDetails: UserDetails) {
+    return this.httpClient
+      .put<UserDetails>(apiUrl + '/Users/UpdateDetails', userDetails)
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
   loginUser(email: string, password: string) {
     return this.httpClient
       .post<AuthResult>(

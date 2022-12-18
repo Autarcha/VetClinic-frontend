@@ -16,7 +16,6 @@ import { UserDetails } from '../models/userModel';
 })
 export class ProfileComponent implements OnInit {
   user: UserDetails;
-  public userDetailsForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,31 +25,41 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser().subscribe((result) => {
       this.user = result;
-
-      this.userDetailsForm = this.formBuilder.group({
-        email: [
-          { value: this.user.email, disabled: false },
-          [Validators.email, Validators.required],
-        ],
-        name: [
-          { value: this.user.name, disabled: false },
-          [Validators.minLength(3), Validators.required],
-        ],
-        surname: [
-          { value: this.user.surname, disabled: false },
-          [Validators.minLength(3), Validators.required],
-        ],
-        phoneNumber: [
-          { value: this.user.phoneNumber, disabled: false },
-          [
-            Validators.minLength(9),
-            Validators.maxLength(9),
-            Validators.required,
-          ],
-        ],
-      });
+      this.userDetailsForm.setValue(this.user);
     });
   }
+
+  userDetailsForm = this.formBuilder.group({
+    email: [
+      { value: '', disabled: false },
+      [Validators.email, Validators.required],
+    ],
+    name: [
+      { value: '', disabled: false },
+      [
+        Validators.minLength(3),
+        Validators.required,
+        Validators.pattern('^[a-zA-ZąęółżźćńśĄĘÓŻŹĆŃŁŚ]{3,60}$'),
+      ],
+    ],
+    surname: [
+      { value: '', disabled: false },
+      [
+        Validators.minLength(3),
+        Validators.required,
+        Validators.pattern('^[a-zA-ZąęółżźćńśĄĘÓŻŹĆŃŁŚ]{3,60}$'),
+      ],
+    ],
+    phoneNumber: [
+      { value: '', disabled: false },
+      [
+        Validators.minLength(9),
+        Validators.maxLength(9),
+        Validators.required,
+        Validators.pattern('^[0-9]{9,9}$'),
+      ],
+    ],
+  });
 
   changePasswordForm = this.formBuilder.group({
     oldPassword: ['', [Validators.minLength(8), Validators.required]],
@@ -59,6 +68,6 @@ export class ProfileComponent implements OnInit {
   });
 
   onSubmit() {
-    console.log('cispko');
+    this.userService.updateUser(this.userDetailsForm.value as UserDetails);
   }
 }
