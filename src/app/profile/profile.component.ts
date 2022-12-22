@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { UserDetails } from '../models/userModel';
+import { UserChangePassword, UserDetails } from '../models/userModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -16,10 +11,15 @@ import { UserDetails } from '../models/userModel';
 })
 export class ProfileComponent implements OnInit {
   user: UserDetails;
+  userChangePassword: UserChangePassword = {};
+  wrongConfirm: boolean = false;
+  samePassword: boolean = false;
+  success: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -62,12 +62,61 @@ export class ProfileComponent implements OnInit {
   });
 
   changePasswordForm = this.formBuilder.group({
-    oldPassword: ['', [Validators.minLength(8), Validators.required]],
-    newPassword: ['', [Validators.minLength(8), Validators.required]],
+    oldPassword: [''],
+    newPassword: [
+      '',
+      [
+        Validators.minLength(8),
+        Validators.required,
+        Validators.pattern(
+          '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
+        ),
+      ],
+    ],
     confirmPassword: ['', [Validators.minLength(8), Validators.required]],
   });
 
-  onSubmit() {
-    this.userService.updateUser(this.userDetailsForm.value as UserDetails);
+  onSubmitDetails() {
+    this.userService
+      .updateUser(this.userDetailsForm.value as UserDetails)
+      .subscribe(
+        (result) => {
+          this.router.navigate(['/profile']);
+        },
+        (error) => {}
+      );
+  }
+
+  onSubmitPassword() {
+    this.success = false;
+    this.samePassword = false;
+    this.wrongConfirm = false;
+
+    this.userChangePassword.oldPassword =
+      this.changePasswordForm.controls.oldPassword.value || '';
+    this.userChangePassword.newPassword =
+      this.changePasswordForm.controls.newPassword.value || '';
+
+    if (
+      this.userChangePassword.newPassword !==
+      this.changePasswordForm.controls.confirmPassword.value
+    ) {
+      this.wrongConfirm = true;
+      return;
+    }
+
+    if (
+      this.userChangePassword.newPassword ===
+      this.userChangePassword.oldPassword
+    ) {
+      this.samePassword = true;
+    }
+    this.userService.changePassword(this.userChangePassword).subscribe(
+      (result) => {
+        this.success = true;
+        this.changePasswordForm.reset();
+      },
+      (error) => {}
+    );
   }
 }

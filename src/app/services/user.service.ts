@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { apiUrl } from '../app.module';
-import { User, UserDetails } from '../models/userModel';
+import { User, UserChangePassword, UserDetails } from '../models/userModel';
 import { AuthResult } from './authModel';
 import { Router } from '@angular/router';
 
@@ -17,11 +17,17 @@ export class UserService {
   }
 
   updateUser(userDetails: UserDetails) {
-    return this.httpClient
-      .put<UserDetails>(apiUrl + '/Users/UpdateDetails', userDetails)
-      .subscribe((data) => {
-        console.log(data);
-      });
+    return this.httpClient.put<UserDetails>(
+      apiUrl + '/Users/UpdateDetails',
+      userDetails
+    );
+  }
+
+  changePassword(userChangePassword: UserChangePassword) {
+    return this.httpClient.put<UserDetails>(
+      apiUrl + '/Users/ChangePassword',
+      userChangePassword
+    );
   }
 
   loginUser(email: string, password: string) {
