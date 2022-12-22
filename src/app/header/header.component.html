@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid d-flex flex-grow-1">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" routerLink="home">
       <img class="logo" src="assets/logo.png" alt="Logo" />
       Klinika <br />
       weterynaryjna <br /><span
@@ -12,7 +12,7 @@
       class="navbar-toggler text-right"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#navbarNavDropdown"
+      data-bs-target="#navbarSupportedContent"
       aria-controls="navbarNavDropdown"
       aria-expanded="false"
       aria-label="Toggle navigation"
@@ -21,13 +21,16 @@
         <i class="fa fa-bars" style="color: white"></i>
       </span>
     </button>
-    <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
-      <ul class="navbar-nav ms-auto flex-nowrap">
+    <div
+      class="navbar-collapse collapse text-center"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav ms-auto flex-nowrap" *ngIf="!isAuthenticated">
         <li>
           <hr />
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Usługi</a>
+          <a class="nav-link">Usługi</a>
         </li>
         <li>
           <hr />
@@ -46,7 +49,49 @@
           <hr />
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Zaloguj się</a>
+          <a class="nav-link" routerLink="login">Zaloguj się</a>
+        </li>
+      </ul>
+      <ul
+        class="navbar-nav ms-auto flex-nowrap"
+        *ngIf="isAuthenticated && userRole == 4"
+      >
+        <li>
+          <hr />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Zwierzęta</a>
+        </li>
+        <li>
+          <hr />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Wizyty</a>
+        </li>
+        <li>
+          <hr />
+        </li>
+        <hr class="dropdown-divider" />
+        <li class="nav-item">
+          <a class="nav-link" routerLink="profile">Profil</a>
+        </li>
+        <li>
+          <hr />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="login" (click)="logout()"
+            >Wyloguj się</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          disabled="isAuthenticated"
+          style="pointer-events: none"
+          *ngIf="!isCollapsed"
+        >
+          <span class="nav-link" style="font-weight: bolder"
+            >Witaj {{ userName }}!</span
+          >
         </li>
       </ul>
     </div>

@@ -10,6 +10,14 @@
 .navbar .nav-item .nav-link {
   color: white;
 }
+.navbar .nav-item .nav-link:hover {
+  color: #173499;
+}
+
+.navbar .nav-item:hover {
+  background-color: white;
+  border-radius: 10px;
+}
 
 .navbar .navbar-toggler {
   color: #ffffff;
