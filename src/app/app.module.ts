@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/authInterceptor';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './users/users.component';
+import { RegisterComponent } from './users/register/register.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ProfileComponent } from './profile/profile.component';
     HomeComponent,
     LoginComponent,
     ProfileComponent,
+    UsersComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
