@@ -13,6 +13,8 @@ export class UsersComponent implements OnInit {
   loading: boolean = true;
   user: UserDetails;
   users: UserDetails[] = [];
+  cols: any[];
+  fullName: any[];
 
   @ViewChild('dt') dt: Table | undefined;
   applyFilterGlobal($event: any, stringVal: any) {
@@ -23,6 +25,14 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUsers();
+
+    this.cols = [
+      { field: 'id', header: 'Id' },
+      { field: 'name', header: 'Imię' },
+      { field: 'surname', header: 'Nazwisko' },
+      { field: 'email', header: 'Email' },
+      { field: 'phoneNumber', header: 'Numer telefonu' },
+    ];
   }
 
   getAllUsers() {
