@@ -2,29 +2,36 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { apiUrl } from '../app.module';
-import { User, UserChangePassword, UserDetails } from '../models/userModel';
+import { AppUser } from '../models/appUserModel';
 import { AuthResult } from './authModel';
 import { Router } from '@angular/router';
+import { UserProfile } from '../models/userProfileModel';
+import { UserChangePassword } from '../models/userChangePasswordModel';
+import { UserDetails } from '../models/userDetailsModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  currentUser = new BehaviorSubject<User | null>(null);
+  currentUser = new BehaviorSubject<AppUser | null>(null);
 
-  getUser() {
-    return this.httpClient.get<UserDetails>(apiUrl + '/Users/Profile');
+  getUserProfile() {
+    return this.httpClient.get<UserProfile>(apiUrl + '/Users/Profile');
   }
 
-  updateUser(userDetails: UserDetails) {
-    return this.httpClient.put<UserDetails>(
+  getAllUsers() {
+    return this.httpClient.get<UserDetails[]>(apiUrl + '/Users');
+  }
+
+  updateUser(userDetails: UserProfile) {
+    return this.httpClient.put<UserProfile>(
       apiUrl + '/Users/UpdateDetails',
       userDetails
     );
   }
 
   changePassword(userChangePassword: UserChangePassword) {
-    return this.httpClient.put<UserDetails>(
+    return this.httpClient.put<UserProfile>(
       apiUrl + '/Users/ChangePassword',
       userChangePassword
     );
@@ -43,7 +50,7 @@ export class UserService {
             responseData.body !== null &&
             responseData.headers.get('authtoken') !== null
           ) {
-            const user = new User(
+            const user = new AppUser(
               responseData.body.role,
               responseData.body.name,
               responseData.body.email,
@@ -71,7 +78,7 @@ export class UserService {
       token: string;
     } = JSON.parse(userDataString);
     if (!userData) return;
-    const loadedUser = new User(
+    const loadedUser = new AppUser(
       userData.role,
       userData.name,
       userData.email,

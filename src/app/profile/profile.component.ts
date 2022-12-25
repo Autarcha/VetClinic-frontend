@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { UserChangePassword, UserDetails } from '../models/userModel';
 import { Router } from '@angular/router';
+import { UserProfile } from '../models/userProfileModel';
+import { UserChangePassword } from '../models/userChangePasswordModel';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  user: UserDetails;
+  user: UserProfile;
   userChangePassword: UserChangePassword = {};
   wrongConfirm: boolean = false;
   samePassword: boolean = false;
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe((result) => {
+    this.userService.getUserProfile().subscribe((result) => {
       this.user = result;
       this.userDetailsForm.setValue(this.user);
     });
@@ -78,7 +79,7 @@ export class ProfileComponent implements OnInit {
 
   onSubmitDetails() {
     this.userService
-      .updateUser(this.userDetailsForm.value as UserDetails)
+      .updateUser(this.userDetailsForm.value as UserProfile)
       .subscribe(
         (result) => {
           this.router.navigate(['/profile']);

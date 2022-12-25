@@ -12,6 +12,9 @@ import { AuthInterceptorService } from './auth/authInterceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { RegisterComponent } from './users/register/register.component';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,9 @@ import { RegisterComponent } from './users/register/register.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    TableModule,
+    InputTextModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {
