@@ -147,6 +147,11 @@
               >
                 Zapisz zmiany
               </button>
+              <div *ngIf="successUpdate">
+                <div class="text-success" style="text-align-all: left">
+                  Pomyślnie zaktualizowano dane
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -267,7 +272,7 @@
                   Nowe hasło nie może być takie samo jak stare
                 </div>
               </div>
-              <div *ngIf="success">
+              <div *ngIf="successChangePassword">
                 <div class="text-success" style="text-align-all: left">
                   Pomyślnie zmieniono hasło
                 </div>

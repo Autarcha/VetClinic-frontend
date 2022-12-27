@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import * as RandExp from 'randexp';
 import { UserDetails } from '../../models/userDetailsModel';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  @Input() displayAddUserModal: boolean = true;
+  @Input() displayModal: boolean = true;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   success: boolean = false;

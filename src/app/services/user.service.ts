@@ -15,26 +15,8 @@ import { UserDetails } from '../models/userDetailsModel';
 export class UserService {
   currentUser = new BehaviorSubject<AppUser | null>(null);
 
-  getUserProfile() {
-    return this.httpClient.get<UserProfile>(apiUrl + '/Users/Profile');
-  }
-
   getAllUsers() {
     return this.httpClient.get<UserDetails[]>(apiUrl + '/Users');
-  }
-
-  updateUser(userUpdateDetails: UserProfile) {
-    return this.httpClient.put<UserProfile>(
-      apiUrl + '/Users/UpdateDetails',
-      userUpdateDetails
-    );
-  }
-
-  changePassword(userChangePassword: UserChangePassword) {
-    return this.httpClient.put<UserChangePassword>(
-      apiUrl + '/Users/ChangePassword',
-      userChangePassword
-    );
   }
 
   registerUser(userRegister: UserDetails) {
@@ -58,6 +40,7 @@ export class UserService {
             responseData.headers.get('authtoken') !== null
           ) {
             const user = new AppUser(
+              responseData.body.id,
               responseData.body.role,
               responseData.body.name,
               responseData.body.email,
@@ -79,14 +62,16 @@ export class UserService {
     const userDataString = localStorage.getItem('userData');
     if (!userDataString) return;
     const userData: {
+      id: number;
       email: string;
       name: string;
-      userRole: number;
+      role: number;
       token: string;
     } = JSON.parse(userDataString);
     if (!userData) return;
     const loadedUser = new AppUser(
-      userData.userRole,
+      userData.id,
+      userData.role,
       userData.name,
       userData.email,
       userData.token

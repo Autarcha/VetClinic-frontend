@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { UserProfile } from '../models/userProfileModel';
 import { UserChangePassword } from '../models/userChangePasswordModel';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,23 +11,22 @@ import { UserChangePassword } from '../models/userChangePasswordModel';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  userId: number;
   user: UserProfile;
   userChangePassword: UserChangePassword = {};
   wrongConfirm: boolean = false;
   samePassword: boolean = false;
-  success: boolean = false;
+  successChangePassword: boolean = false;
+  successUpdate: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private profileService: ProfileService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.userService.getUserProfile().subscribe((result) => {
-      this.user = result;
-      this.userDetailsForm.setValue(this.user);
-    });
+    this.getUserProfile();
   }
 
   userDetailsForm = this.formBuilder.group({
@@ -77,19 +76,28 @@ export class ProfileComponent implements OnInit {
     confirmPassword: ['', [Validators.minLength(8), Validators.required]],
   });
 
+  getUserProfile() {
+    this.profileService.getUserProfile().subscribe((result) => {
+      this.user = result;
+      this.userDetailsForm.setValue(this.user);
+    });
+  }
+
   onSubmitDetails() {
-    this.userService
-      .updateUser(this.userDetailsForm.value as UserProfile)
+    this.successUpdate = false;
+    this.profileService
+      .updateUserProfile(this.userDetailsForm.value as UserProfile)
       .subscribe(
         (result) => {
-          this.router.navigate(['/profile']);
+          this.successUpdate = true;
+          this.getUserProfile();
         },
         (error) => {}
       );
   }
 
   onSubmitPassword() {
-    this.success = false;
+    this.successChangePassword = false;
     this.samePassword = false;
     this.wrongConfirm = false;
 
@@ -112,9 +120,9 @@ export class ProfileComponent implements OnInit {
     ) {
       this.samePassword = true;
     }
-    this.userService.changePassword(this.userChangePassword).subscribe(
+    this.profileService.changePassword(this.userChangePassword).subscribe(
       (response) => {
-        this.success = true;
+        this.successChangePassword = true;
         this.changePasswordForm.reset();
       },
       (error) => {}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { UserDetails } from '../models/userDetailsModel';
-import * as RandExp from 'randexp';
+import { UserProfile } from '../models/userProfileModel';
 
 @Component({
   selector: 'app-users',
@@ -10,12 +10,11 @@ import * as RandExp from 'randexp';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  loading: boolean = true;
   user: UserDetails;
   users: UserDetails[] = [];
   cols: any[];
-  displayAddUserModal: boolean = false;
-  isAdmin: boolean = false;
+  displayModal: boolean = false;
+  selectedUser: any = null;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -37,12 +36,16 @@ export class UsersComponent implements OnInit {
       .subscribe((response) => (this.users = response));
   }
 
-  showAddUserModal() {
-    this.displayAddUserModal = true;
+  showRegisterModal() {
+    this.displayModal = true;
   }
 
   hideRegisterModal(isClosed: boolean) {
-    this.displayAddUserModal = false;
+    this.displayModal = false;
     this.getAllUsers();
+  }
+
+  showEditModal() {
+    this.displayModal = true;
   }
 }

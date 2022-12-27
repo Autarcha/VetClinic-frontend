@@ -4,7 +4,7 @@
     [value]="users"
     [rows]="10"
     [paginator]="true"
-    [tableStyle]="{ 'min-width': '60rem' }"
+    [tableStyle]="{ 'min-width': '85rem' }"
     [rowHover]="true"
     dataKey="id"
   >
@@ -13,7 +13,7 @@
         <h5 class="m-0 pt-3">Zarządzaj użytkownikami</h5>
         <p-button
           label="Dodaj użytkownika"
-          (click)="showAddUserModal()"
+          (click)="showRegisterModal()"
         ></p-button>
       </div>
     </ng-template>
@@ -22,6 +22,7 @@
         <th *ngFor="let col of cols" pSortableColumn="{{ col.field }}">
           {{ col.header }} <p-sortIcon field="{{ col.field }}"></p-sortIcon>
         </th>
+        <th></th>
       </tr>
 
       <tr>
@@ -33,6 +34,7 @@
             (input)="dt.filter(dtInput.value, col.field, 'contains')"
           />
         </th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>
@@ -40,12 +42,27 @@
         <td *ngFor="let col of cols">
           {{ user[col.field] }}
         </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            (click)="showEditModal()"
+            class="p-button-rounded p-button-success me-2 position-static"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+          ></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
 
 <app-register
-  [displayAddUserModal]="displayAddUserModal"
+  [displayModal]="displayModal"
   (clickClose)="hideRegisterModal($event)"
 ></app-register>
