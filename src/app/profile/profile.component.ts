@@ -113,7 +113,7 @@ export class ProfileComponent implements OnInit {
       this.samePassword = true;
     }
     this.userService.changePassword(this.userChangePassword).subscribe(
-      (result) => {
+      (response) => {
         this.success = true;
         this.changePasswordForm.reset();
       },

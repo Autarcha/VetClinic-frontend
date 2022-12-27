@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { UserDetails } from '../models/userDetailsModel';
-import { Table } from 'primeng/table';
+import * as RandExp from 'randexp';
 
 @Component({
   selector: 'app-users',
@@ -14,12 +14,8 @@ export class UsersComponent implements OnInit {
   user: UserDetails;
   users: UserDetails[] = [];
   cols: any[];
-  fullName: any[];
-
-  @ViewChild('dt') dt: Table | undefined;
-  applyFilterGlobal($event: any, stringVal: any) {
-    this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
-  }
+  displayAddUserModal: boolean = false;
+  isAdmin: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -39,5 +35,14 @@ export class UsersComponent implements OnInit {
     this.userService
       .getAllUsers()
       .subscribe((response) => (this.users = response));
+  }
+
+  showAddUserModal() {
+    this.displayAddUserModal = true;
+  }
+
+  hideRegisterModal(isClosed: boolean) {
+    this.displayAddUserModal = false;
+    this.getAllUsers();
   }
 }

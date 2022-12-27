@@ -11,10 +11,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/authInterceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
-import { RegisterComponent } from './users/register/register.component';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { RegisterModule } from './users/register/register.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     ProfileComponent,
     UsersComponent,
-    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TableModule,
     InputTextModule,
     BrowserAnimationsModule,
+    ButtonModule,
+    DialogModule,
+    RegisterModule,
   ],
   providers: [
     {

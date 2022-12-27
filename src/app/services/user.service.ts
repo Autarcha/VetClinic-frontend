@@ -23,17 +23,24 @@ export class UserService {
     return this.httpClient.get<UserDetails[]>(apiUrl + '/Users');
   }
 
-  updateUser(userDetails: UserProfile) {
+  updateUser(userUpdateDetails: UserProfile) {
     return this.httpClient.put<UserProfile>(
       apiUrl + '/Users/UpdateDetails',
-      userDetails
+      userUpdateDetails
     );
   }
 
   changePassword(userChangePassword: UserChangePassword) {
-    return this.httpClient.put<UserProfile>(
+    return this.httpClient.put<UserChangePassword>(
       apiUrl + '/Users/ChangePassword',
       userChangePassword
+    );
+  }
+
+  registerUser(userRegister: UserDetails) {
+    return this.httpClient.post<UserDetails>(
+      apiUrl + '/Users/Register',
+      userRegister
     );
   }
 
@@ -74,12 +81,12 @@ export class UserService {
     const userData: {
       email: string;
       name: string;
-      role: number;
+      userRole: number;
       token: string;
     } = JSON.parse(userDataString);
     if (!userData) return;
     const loadedUser = new AppUser(
-      userData.role,
+      userData.userRole,
       userData.name,
       userData.email,
       userData.token

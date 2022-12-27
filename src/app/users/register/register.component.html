@@ -1,1 +1,171 @@
-<p>register works!</p>
+<p-dialog
+  header="Zarejestruj użytkownika"
+  [(visible)]="displayAddUserModal"
+  [style]="{ width: '50vw' }"
+  (onHide)="closeModal()"
+>
+  <form
+    class="col-lg-6 col-md-8 col-sm-10 col-12 m-auto"
+    [formGroup]="userRegisterForm"
+    (ngSubmit)="onSubmitRegister()"
+  >
+    <div class="form-group">
+      <label for="name">Imię</label>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        id="name"
+        required
+        minlength="3"
+        formControlName="name"
+      />
+      <div
+        *ngIf="
+          !userRegisterForm.controls['name'].valid &&
+          (userRegisterForm.controls['name'].dirty ||
+            userRegisterForm.controls['name'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="userRegisterForm.controls['name'].errors?.['required']"
+        >
+          Imię jest wymagane
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="userRegisterForm.controls['name'].errors?.['pattern']"
+        >
+          Imię musi rozpoczynać sie od wielkiej litery i nie może zawierać
+          żadnych cyfr ani znaków specjalnych
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="surname">Nazwisko</label>
+      <input
+        type="text"
+        name="surname"
+        class="form-control"
+        id="surname"
+        required
+        minlength="3"
+        formControlName="surname"
+      />
+      <div
+        *ngIf="
+          !userRegisterForm.controls['surname'].valid &&
+          (userRegisterForm.controls['surname'].dirty ||
+            userRegisterForm.controls['surname'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="userRegisterForm.controls['surname'].errors?.['required']"
+        >
+          Nazwisko jest wymagane
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="userRegisterForm.controls['surname'].errors?.['pattern']"
+        >
+          Nazwisko musi rozpoczynać sie od wielkiej litery i nie może zawierać
+          żadnych cyfr ani znaków specjalnych
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="email">Adres email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        required
+        email
+        formControlName="email"
+      />
+      <div
+        *ngIf="
+          !userRegisterForm.controls['email'].valid &&
+          (userRegisterForm.controls['email'].dirty ||
+            userRegisterForm.controls['email'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="userRegisterForm.controls['email'].errors?.['required']"
+        >
+          Email jest wymagany
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="userRegisterForm.controls['email'].errors?.['email']"
+        >
+          Wprowadź poprawny adres email
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="phoneNumber">Numer telefonu</label>
+      <input
+        type="text"
+        name="phoneNumber"
+        class="form-control"
+        id="phoneNumber"
+        required
+        minlength="9"
+        maxlength="9"
+        formControlName="phoneNumber"
+      />
+      <div
+        *ngIf="
+          !userRegisterForm.controls['phoneNumber'].valid &&
+          (userRegisterForm.controls['phoneNumber'].dirty ||
+            userRegisterForm.controls['phoneNumber'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="userRegisterForm.controls['phoneNumber'].errors?.['required']"
+        >
+          Numer telefonu jest wymagany
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="userRegisterForm.controls['phoneNumber'].errors?.['pattern']"
+        >
+          Wprowadź poprawny numer telefonu
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button
+        type="submit"
+        class="btn btn-dark mt-4 form-control"
+        [disabled]="!userRegisterForm.valid"
+      >
+        Zarejestruj
+      </button>
+      <div *ngIf="success">
+        <div class="text-success mt-3" style="text-align-all: left">
+          Pomyślnie utworzono użytkownika!
+        </div>
+      </div>
+      <div *ngIf="userExists">
+        <div class="text-danger mt-3" style="text-align-all: left">
+          Użytkownik o takim adresie email został już zarejestrowany
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-button
+    iconPos="left"
+    class="mt-3"
+    style="float: right"
+    icon="pi pi-check"
+    (click)="closeModal()"
+    label="Zakończ"
+    styleClass="p-button-text"
+  ></p-button>
+</p-dialog>
