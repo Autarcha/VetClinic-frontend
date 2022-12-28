@@ -26,6 +26,13 @@ export class UserService {
     );
   }
 
+  editUser(userData: UserDetails, userId: number) {
+    return this.httpClient.put<UserDetails>(
+      apiUrl + '/Users/' + userId,
+      userData
+    );
+  }
+
   loginUser(email: string, password: string) {
     return this.httpClient
       .post<AuthResult>(

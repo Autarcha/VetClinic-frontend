@@ -1,13 +1,13 @@
 <p-dialog
-  header="Zarejestruj użytkownika"
+  header="{{modalType}} użytkownika"
   [(visible)]="displayModal"
   [style]="{ width: '50vw' }"
   (onHide)="closeModal()"
 >
   <form
     class="col-lg-6 col-md-8 col-sm-10 col-12 m-auto"
-    [formGroup]="userRegisterForm"
-    (ngSubmit)="onSubmitRegister()"
+    [formGroup]="userForm"
+    (ngSubmit)="onAddEditSubmit()"
   >
     <div class="form-group">
       <label for="name">Imię</label>
@@ -22,20 +22,20 @@
       />
       <div
         *ngIf="
-          !userRegisterForm.controls['name'].valid &&
-          (userRegisterForm.controls['name'].dirty ||
-            userRegisterForm.controls['name'].touched)
+          !userForm.controls['name'].valid &&
+          (userForm.controls['name'].dirty ||
+            userForm.controls['name'].touched)
         "
       >
         <div
           class="text-danger"
-          *ngIf="userRegisterForm.controls['name'].errors?.['required']"
+          *ngIf="userForm.controls['name'].errors?.['required']"
         >
           Imię jest wymagane
         </div>
         <div
           class="text-danger"
-          *ngIf="userRegisterForm.controls['name'].errors?.['pattern']"
+          *ngIf="userForm.controls['name'].errors?.['pattern']"
         >
           Imię musi rozpoczynać sie od wielkiej litery i nie może zawierać
           żadnych cyfr ani znaków specjalnych
@@ -55,20 +55,20 @@
       />
       <div
         *ngIf="
-          !userRegisterForm.controls['surname'].valid &&
-          (userRegisterForm.controls['surname'].dirty ||
-            userRegisterForm.controls['surname'].touched)
+          !userForm.controls['surname'].valid &&
+          (userForm.controls['surname'].dirty ||
+            userForm.controls['surname'].touched)
         "
       >
         <div
           class="text-danger"
-          *ngIf="userRegisterForm.controls['surname'].errors?.['required']"
+          *ngIf="userForm.controls['surname'].errors?.['required']"
         >
           Nazwisko jest wymagane
         </div>
         <div
           class="text-danger"
-          *ngIf="userRegisterForm.controls['surname'].errors?.['pattern']"
+          *ngIf="userForm.controls['surname'].errors?.['pattern']"
         >
           Nazwisko musi rozpoczynać sie od wielkiej litery i nie może zawierać
           żadnych cyfr ani znaków specjalnych
@@ -87,20 +87,20 @@
       />
       <div
         *ngIf="
-          !userRegisterForm.controls['email'].valid &&
-          (userRegisterForm.controls['email'].dirty ||
-            userRegisterForm.controls['email'].touched)
+          !userForm.controls['email'].valid &&
+          (userForm.controls['email'].dirty ||
+            userForm.controls['email'].touched)
         "
       >
         <div
           class="text-danger"
-          *ngIf="userRegisterForm.controls['email'].errors?.['required']"
+          *ngIf="userForm.controls['email'].errors?.['required']"
         >
           Email jest wymagany
         </div>
         <div
           class="text-danger"
-          *ngIf="userRegisterForm.controls['email'].errors?.['email']"
+          *ngIf="userForm.controls['email'].errors?.['email']"
         >
           Wprowadź poprawny adres email
         </div>
@@ -120,20 +120,20 @@
       />
       <div
         *ngIf="
-          !userRegisterForm.controls['phoneNumber'].valid &&
-          (userRegisterForm.controls['phoneNumber'].dirty ||
-            userRegisterForm.controls['phoneNumber'].touched)
+          !userForm.controls['phoneNumber'].valid &&
+          (userForm.controls['phoneNumber'].dirty ||
+            userForm.controls['phoneNumber'].touched)
         "
       >
         <div
           class="text-danger"
-          *ngIf="userRegisterForm.controls['phoneNumber'].errors?.['required']"
+          *ngIf="userForm.controls['phoneNumber'].errors?.['required']"
         >
           Numer telefonu jest wymagany
         </div>
         <div
           class="text-danger"
-          *ngIf="userRegisterForm.controls['phoneNumber'].errors?.['pattern']"
+          *ngIf="userForm.controls['phoneNumber'].errors?.['pattern']"
         >
           Wprowadź poprawny numer telefonu
         </div>
@@ -143,9 +143,9 @@
       <button
         type="submit"
         class="btn btn-dark mt-4 form-control"
-        [disabled]="!userRegisterForm.valid"
+        [disabled]="!userForm.valid"
       >
-        Zarejestruj
+        {{modalType}}
       </button>
       <div *ngIf="userExists">
         <div class="text-danger mt-3" style="text-align-all: left">

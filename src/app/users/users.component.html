@@ -47,7 +47,7 @@
             pButton
             pRipple
             icon="pi pi-pencil"
-            (click)="showEditModal()"
+            (click)="showEditModal(user)"
             class="p-button-rounded p-button-success me-2 position-static"
           ></button>
           <button
@@ -65,6 +65,7 @@
 <app-add-edit-user
   [displayModal]="displayModal"
   (clickClose)="hideRegisterModal($event)"
+  [selectedUser]="selectedUser"
 ></app-add-edit-user>
 
 <p-toast position="top-right" key="myKey1"></p-toast>

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from '../../models/userDetailsModel';
@@ -9,10 +16,12 @@ import { MessageService } from 'primeng/api';
   templateUrl: './add-edit-user.html',
   styleUrls: ['./add-edit-user.css'],
 })
-export class AddEditUserComponent implements OnInit {
+export class AddEditUserComponent implements OnInit, OnChanges {
   @Input() displayModal: boolean = true;
+  @Input() selectedUser: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  modalType = 'Zarejestruj';
+  userDetails: UserDetails;
   userExists: boolean = false;
 
   constructor(
@@ -23,7 +32,17 @@ export class AddEditUserComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  userRegisterForm = this.formBuilder.group({
+  ngOnChanges() {
+    if (this.selectedUser) {
+      this.modalType = 'Edytuj';
+      this.userForm.patchValue(this.selectedUser);
+    } else {
+      this.userForm.reset();
+      this.modalType = 'Zarejestruj';
+    }
+  }
+
+  userForm = this.formBuilder.group({
     name: [
       { value: '', disabled: false },
       [
@@ -59,20 +78,48 @@ export class AddEditUserComponent implements OnInit {
     this.clickClose.emit(true);
   }
 
-  onSubmitRegister() {
+  onAddEditSubmit() {
     this.userExists = false;
 
+    if (this.modalType === 'Edytuj') {
+      this.editUser();
+    } else {
+      this.registerUser();
+    }
+  }
+
+  registerUser() {
+    this.userService.registerUser(this.userForm.value as UserDetails).subscribe(
+      () => {
+        this.userForm.reset();
+        this.clickClose.emit(true);
+        this.messageService.add({
+          key: 'myKey1',
+          severity: 'success',
+          summary: 'Sukces',
+          detail: 'Pomyślnie zarejestrowano użytkownika',
+        });
+      },
+      (error) => {
+        if (error.status === 422) {
+          this.userExists = true;
+        }
+      }
+    );
+  }
+
+  editUser() {
     this.userService
-      .registerUser(this.userRegisterForm.value as UserDetails)
+      .editUser(this.userForm.value as UserDetails, this.selectedUser.id)
       .subscribe(
-        (response) => {
-          this.userRegisterForm.reset();
+        () => {
+          this.userForm.reset();
           this.clickClose.emit(true);
           this.messageService.add({
             key: 'myKey1',
             severity: 'success',
             summary: 'Sukces',
-            detail: 'Zarejestrowano użytkownika',
+            detail: 'Pomyśnie zedytowano użytkownika',
           });
         },
         (error) => {

@@ -9,7 +9,7 @@ import { UserDetails } from '../models/userDetailsModel';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  user: UserDetails;
+  selectedUser: any = null;
   users: UserDetails[] = [];
   cols: any[];
   displayModal: boolean = false;
@@ -36,6 +36,7 @@ export class UsersComponent implements OnInit {
 
   showRegisterModal() {
     this.displayModal = true;
+    this.selectedUser = null;
   }
 
   hideRegisterModal(isClosed: boolean) {
@@ -43,7 +44,8 @@ export class UsersComponent implements OnInit {
     this.getAllUsers();
   }
 
-  showEditModal() {
+  showEditModal(user: UserDetails) {
     this.displayModal = true;
+    this.selectedUser = user;
   }
 }
