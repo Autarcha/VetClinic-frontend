@@ -17,4 +17,4 @@ import { ToastModule } from 'primeng/toast';
   ],
   exports: [AddEditUserComponent],
 })
-export class UserModule {}
+export class AddEditUserModule {}

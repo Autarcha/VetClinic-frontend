@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
 import { UserDetails } from '../models/userDetailsModel';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -14,7 +15,11 @@ export class UsersComponent implements OnInit {
   cols: any[];
   displayModal: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -47,5 +52,32 @@ export class UsersComponent implements OnInit {
   showEditModal(user: UserDetails) {
     this.displayModal = true;
     this.selectedUser = user;
+  }
+
+  deleteUser(user: UserDetails) {
+    this.confirmationService.confirm({
+      message: 'Czy na pewno chcesz usunąć tego użytkownika?',
+      accept: () => {
+        this.userService.deleteUser(user.id).subscribe(
+          (response) => {
+            this.getAllUsers();
+            this.messageService.add({
+              key: 'myKey1',
+              severity: 'success',
+              summary: 'Sukces',
+              detail: 'Pomyślnie usunięto użytkownika',
+            });
+          },
+          (error) => {
+            this.messageService.add({
+              key: 'myKey1',
+              severity: 'error',
+              summary: 'Bład',
+              detail: error,
+            });
+          }
+        );
+      },
+    });
   }
 }

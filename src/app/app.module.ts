@@ -10,15 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/authInterceptor';
 import { ProfileComponent } from './profile/profile.component';
-import { UsersComponent } from './users/users.component';
-import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { UserModule } from './users/add-edit-user/user.module';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +22,6 @@ import { MessageService } from 'primeng/api';
     HomeComponent,
     LoginComponent,
     ProfileComponent,
-    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,13 +29,8 @@ import { MessageService } from 'primeng/api';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    TableModule,
-    InputTextModule,
     BrowserAnimationsModule,
-    ButtonModule,
-    DialogModule,
-    UserModule,
-    ToastModule,
+    UsersModule,
   ],
   providers: [
     {
@@ -50,7 +38,6 @@ import { MessageService } from 'primeng/api';
       useClass: AuthInterceptorService,
       multi: true,
     },
-    MessageService,
   ],
   bootstrap: [AppComponent],
 })

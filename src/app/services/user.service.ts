@@ -33,6 +33,10 @@ export class UserService {
     );
   }
 
+  deleteUser(userId: number) {
+    return this.httpClient.delete<UserDetails>(apiUrl + '/Users/' + userId);
+  }
+
   loginUser(email: string, password: string) {
     return this.httpClient
       .post<AuthResult>(
