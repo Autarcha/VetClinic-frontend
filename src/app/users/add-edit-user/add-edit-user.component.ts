@@ -2,22 +2,23 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from '../../models/userDetailsModel';
+import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-add-edit-user',
+  templateUrl: './add-edit-user.html',
+  styleUrls: ['./add-edit-user.css'],
 })
-export class RegisterComponent implements OnInit {
+export class AddEditUserComponent implements OnInit {
   @Input() displayModal: boolean = true;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  success: boolean = false;
   userExists: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {}
@@ -59,20 +60,24 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmitRegister() {
-    this.success = false;
     this.userExists = false;
 
     this.userService
       .registerUser(this.userRegisterForm.value as UserDetails)
       .subscribe(
-        () => {
-          this.success = true;
+        (response) => {
           this.userRegisterForm.reset();
+          this.clickClose.emit(true);
+          this.messageService.add({
+            key: 'myKey1',
+            severity: 'success',
+            summary: 'Sukces',
+            detail: 'Zarejestrowano użytkownika',
+          });
         },
         (error) => {
           if (error.status === 422) {
             this.userExists = true;
-            this.userRegisterForm.reset();
           }
         }
       );

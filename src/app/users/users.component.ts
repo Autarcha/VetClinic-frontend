@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { UserDetails } from '../models/userDetailsModel';
-import { UserProfile } from '../models/userProfileModel';
 
 @Component({
   selector: 'app-users',
@@ -14,7 +13,6 @@ export class UsersComponent implements OnInit {
   users: UserDetails[] = [];
   cols: any[];
   displayModal: boolean = false;
-  selectedUser: any = null;
 
   constructor(private userService: UserService, private router: Router) {}
 

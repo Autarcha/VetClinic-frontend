@@ -16,7 +16,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { RegisterModule } from './users/register/register.module';
+import { UserModule } from './users/add-edit-user/user.module';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { RegisterModule } from './users/register/register.module';
     BrowserAnimationsModule,
     ButtonModule,
     DialogModule,
-    RegisterModule,
+    UserModule,
+    ToastModule,
   ],
   providers: [
     {
@@ -47,6 +50,7 @@ import { RegisterModule } from './users/register/register.module';
       useClass: AuthInterceptorService,
       multi: true,
     },
+    MessageService,
   ],
   bootstrap: [AppComponent],
 })
