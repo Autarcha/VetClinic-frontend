@@ -94,6 +94,55 @@
           >
         </li>
       </ul>
+
+      <ul
+        class="navbar-nav ms-auto flex-nowrap"
+        *ngIf="isAuthenticated && (userRole == 1 || userRole == 2)"
+      >
+        <li>
+          <hr />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Zwierzęta</a>
+        </li>
+        <li>
+          <hr />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Wizyty</a>
+        </li>
+        <li>
+          <hr />
+        </li>
+        <hr class="dropdown-divider" />
+        <li class="nav-item">
+          <a class="nav-link" routerLink="users">Uzytkownicy</a>
+        </li>
+        <li>
+          <hr />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="profile">Profil</a>
+        </li>
+        <li>
+          <hr />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="login" (click)="logout()"
+            >Wyloguj się</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          disabled="isAuthenticated"
+          style="pointer-events: none"
+          *ngIf="!isCollapsed"
+        >
+          <span class="nav-link" style="font-weight: bolder"
+            >Witaj {{ userName }}!</span
+          >
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

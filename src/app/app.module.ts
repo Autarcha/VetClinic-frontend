@@ -11,6 +11,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/authInterceptor';
 import { ProfileComponent } from './profile/profile.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UsersModule } from './users/users.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +29,8 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    UsersModule,
   ],
   providers: [
     {

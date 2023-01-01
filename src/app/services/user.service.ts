@@ -2,32 +2,39 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { apiUrl } from '../app.module';
-import { User, UserChangePassword, UserDetails } from '../models/userModel';
+import { AppUser } from '../models/appUserModel';
 import { AuthResult } from './authModel';
 import { Router } from '@angular/router';
+import { UserProfile } from '../models/userProfileModel';
+import { UserChangePassword } from '../models/userChangePasswordModel';
+import { UserDetails } from '../models/userDetailsModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  currentUser = new BehaviorSubject<User | null>(null);
+  currentUser = new BehaviorSubject<AppUser | null>(null);
 
-  getUser() {
-    return this.httpClient.get<UserDetails>(apiUrl + '/Users/Profile');
+  getAllUsers() {
+    return this.httpClient.get<UserDetails[]>(apiUrl + '/Users');
   }
 
-  updateUser(userDetails: UserDetails) {
-    return this.httpClient.put<UserDetails>(
-      apiUrl + '/Users/UpdateDetails',
-      userDetails
+  registerUser(userRegister: UserDetails) {
+    return this.httpClient.post<UserDetails>(
+      apiUrl + '/Users/Register',
+      userRegister
     );
   }
 
-  changePassword(userChangePassword: UserChangePassword) {
+  editUser(userData: UserDetails, userId: number) {
     return this.httpClient.put<UserDetails>(
-      apiUrl + '/Users/ChangePassword',
-      userChangePassword
+      apiUrl + '/Users/' + userId,
+      userData
     );
+  }
+
+  deleteUser(userId: number) {
+    return this.httpClient.delete<UserDetails>(apiUrl + '/Users/' + userId);
   }
 
   loginUser(email: string, password: string) {
@@ -43,7 +50,8 @@ export class UserService {
             responseData.body !== null &&
             responseData.headers.get('authtoken') !== null
           ) {
-            const user = new User(
+            const user = new AppUser(
+              responseData.body.id,
               responseData.body.role,
               responseData.body.name,
               responseData.body.email,
@@ -65,13 +73,15 @@ export class UserService {
     const userDataString = localStorage.getItem('userData');
     if (!userDataString) return;
     const userData: {
+      id: number;
       email: string;
       name: string;
       role: number;
       token: string;
     } = JSON.parse(userDataString);
     if (!userData) return;
-    const loadedUser = new User(
+    const loadedUser = new AppUser(
+      userData.id,
       userData.role,
       userData.name,
       userData.email,

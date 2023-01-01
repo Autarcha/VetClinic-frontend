@@ -1,0 +1,181 @@
+<p-dialog
+  header="{{modalType}} użytkownika"
+  [(visible)]="displayModal"
+  [style]="{ width: '50vw' }"
+  (onHide)="closeModal()"
+>
+  <form
+    class="col-lg-6 col-md-8 col-sm-10 col-12 m-auto"
+    [formGroup]="userForm"
+    (ngSubmit)="onAddEditSubmit()"
+  >
+    <div class="form-group">
+      <label for="name">Imię</label>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        id="name"
+        required
+        minlength="3"
+        formControlName="name"
+      />
+      <div
+        *ngIf="
+          !userForm.controls['name'].valid &&
+          (userForm.controls['name'].dirty ||
+            userForm.controls['name'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="userForm.controls['name'].errors?.['required']"
+        >
+          Imię jest wymagane
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="userForm.controls['name'].errors?.['pattern']"
+        >
+          Imię musi rozpoczynać sie od wielkiej litery i nie może zawierać
+          żadnych cyfr ani znaków specjalnych
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="surname">Nazwisko</label>
+      <input
+        type="text"
+        name="surname"
+        class="form-control"
+        id="surname"
+        required
+        minlength="3"
+        formControlName="surname"
+      />
+      <div
+        *ngIf="
+          !userForm.controls['surname'].valid &&
+          (userForm.controls['surname'].dirty ||
+            userForm.controls['surname'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="userForm.controls['surname'].errors?.['required']"
+        >
+          Nazwisko jest wymagane
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="userForm.controls['surname'].errors?.['pattern']"
+        >
+          Nazwisko musi rozpoczynać sie od wielkiej litery i nie może zawierać
+          żadnych cyfr ani znaków specjalnych
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="email">Adres email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        required
+        email
+        formControlName="email"
+      />
+      <div
+        *ngIf="
+          !userForm.controls['email'].valid &&
+          (userForm.controls['email'].dirty ||
+            userForm.controls['email'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="userForm.controls['email'].errors?.['required']"
+        >
+          Email jest wymagany
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="userForm.controls['email'].errors?.['email']"
+        >
+          Wprowadź poprawny adres email
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="phoneNumber">Numer telefonu</label>
+      <input
+        type="text"
+        name="phoneNumber"
+        class="form-control"
+        id="phoneNumber"
+        required
+        minlength="9"
+        maxlength="9"
+        formControlName="phoneNumber"
+      />
+      <div
+        *ngIf="
+          !userForm.controls['phoneNumber'].valid &&
+          (userForm.controls['phoneNumber'].dirty ||
+            userForm.controls['phoneNumber'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="userForm.controls['phoneNumber'].errors?.['required']"
+        >
+          Numer telefonu jest wymagany
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="userForm.controls['phoneNumber'].errors?.['pattern']"
+        >
+          Wprowadź poprawny numer telefonu
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4" *ngIf="userRole===1">
+      <label for="role">Rola użytkownika</label>
+      <select
+        formControlName="role"
+        name="role"
+        class="form-control"
+        id="role"
+        type="number"
+      >
+        <option disabled>Wybierz rolę użytkownika</option>
+        <option *ngFor="let role of roleTypes" [value]="role">
+          {{ rolesMapping[role] }}
+        </option>
+      </select>
+    </div>
+    <div class="text-center">
+      <button
+        type="submit"
+        class="btn btn-dark mt-4 form-control"
+        [disabled]="!userForm.valid"
+      >
+        {{modalType}}
+      </button>
+      <div *ngIf="userExists">
+        <div class="text-danger mt-3" style="text-align-all: left">
+          Użytkownik o takim adresie email został już zarejestrowany
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-button
+    iconPos="left"
+    class="mt-3"
+    style="float: right"
+    icon="pi pi-check"
+    (click)="closeModal()"
+    label="Zakończ"
+    styleClass="p-button-text"
+  ></p-button>
+</p-dialog>
