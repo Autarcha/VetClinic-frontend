@@ -81,6 +81,10 @@
               >
                 Zaloguj się
               </button>
+              <div class="text-success" *ngIf="success">
+                Pomyslnie zalogowano do serwisu. Nastepuję przekierowanie do
+                strony głównej. Prosze czekać.
+              </div>
               <div *ngIf="userNotFound">
                 <div class="text-danger">Niepoprawny email lub hasło</div>
               </div>

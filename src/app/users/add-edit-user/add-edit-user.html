@@ -139,6 +139,21 @@
         </div>
       </div>
     </div>
+    <div class="form-group mt-4" *ngIf="userRole===1">
+      <label for="role">Rola użytkownika</label>
+      <select
+        formControlName="role"
+        name="role"
+        class="form-control"
+        id="role"
+        type="number"
+      >
+        <option disabled>Wybierz rolę użytkownika</option>
+        <option *ngFor="let role of roleTypes" [value]="role">
+          {{ rolesMapping[role] }}
+        </option>
+      </select>
+    </div>
     <div class="text-center">
       <button
         type="submit"

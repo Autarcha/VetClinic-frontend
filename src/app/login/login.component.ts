@@ -13,6 +13,7 @@ export class LoginComponent {
   @Output()
   userLoggedIn = new EventEmitter<AuthResult>();
   userNotFound: boolean = false;
+  success: boolean = false;
 
   userLoginForm = this.formBuilder.group({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -29,6 +30,7 @@ export class LoginComponent {
   ) {}
 
   onSubmit() {
+    this.success = false;
     this.userNotFound = false;
     this.userService
       .loginUser(
@@ -38,6 +40,7 @@ export class LoginComponent {
       .subscribe(
         (result) => {
           this.userLoggedIn.emit(result.body!);
+          this.success = true;
           this.router.navigate(['/home']);
         },
         (error) => {

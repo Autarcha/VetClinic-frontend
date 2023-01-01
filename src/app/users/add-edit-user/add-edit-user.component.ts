@@ -10,6 +10,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from '../../models/userDetailsModel';
 import { MessageService } from 'primeng/api';
+import { Roles, RolesMapping } from '../../enums/roles';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -21,8 +23,14 @@ export class AddEditUserComponent implements OnInit, OnChanges {
   @Input() selectedUser: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   modalType = 'Zarejestruj';
-  userDetails: UserDetails;
   userExists: boolean = false;
+  public rolesMapping: any = RolesMapping;
+  public roleTypes: any = Object.values(Roles).filter(
+    (value) => typeof value === 'number'
+  );
+
+  private userSubscription: Subscription | null = null;
+  public userRole: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +38,15 @@ export class AddEditUserComponent implements OnInit, OnChanges {
     private messageService: MessageService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userSubscription = this.userService.currentUser.subscribe((user) => {
+      this.userRole = user ? user.role : 0;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription?.unsubscribe();
+  }
 
   ngOnChanges() {
     if (this.selectedUser) {
@@ -71,6 +87,12 @@ export class AddEditUserComponent implements OnInit, OnChanges {
         Validators.required,
         Validators.pattern('^[0-9]{9,9}$'),
       ],
+    ],
+    role: [
+      {
+        value: Roles.User,
+        disabled: false,
+      },
     ],
   });
 
