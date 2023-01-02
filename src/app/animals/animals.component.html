@@ -1,0 +1,118 @@
+<div class="card m-5">
+  <p-table
+    #dt
+    [value]="animals"
+    [rows]="10"
+    [paginator]="true"
+    [tableStyle]="{ 'min-width': '85rem' }"
+    [rowHover]="true"
+    dataKey="id"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-flex justify-content-between mt-3">
+        <h5 class="m-0 pt-3">Zwierzęta</h5>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">
+          Id Zwierzęcia<p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="owner">
+          Właściciel<p-sortIcon field="owner"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name">
+          Imię<p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="specie">
+          Rasa<p-sortIcon field="specie"></p-sortIcon>
+        </th>
+        <th>Informacje</th>
+        <th></th>
+      </tr>
+
+      <tr>
+        <th>
+          <input
+            pInputText
+            type="text"
+            #dtInput
+            (input)="dt.filter(dtInput.value, 'id', 'contains')"
+          />
+        </th>
+        <th>
+          <input
+            pInputText
+            type="text"
+            #dtInput
+            (input)="dt.filter(dtInput.value, 'owner', 'contains')"
+          />
+        </th>
+        <th>
+          <input
+            pInputText
+            type="text"
+            #dtInput
+            (input)="dt.filter(dtInput.value, 'name', 'contains')"
+          />
+        </th>
+        <th>
+          <input
+            pInputText
+            type="text"
+            #dtInput
+            (input)="dt.filter(dtInput.value, 'specie', 'contains')"
+          />
+        </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-animal>
+      <tr>
+        <td>
+          {{ animal.id }}
+        </td>
+        <td>
+          {{ animal.owner.name + " " + animal.owner.surname }}
+        </td>
+        <td>
+          {{ animal.name }}
+        </td>
+        <td>
+          {{ animal.specie }}
+        </td>
+        <td>
+          {{ animal.additionalInfo }}
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            (click)="showEditModal(animal)"
+            class="p-button-rounded p-button-success me-2 position-static"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<app-add-edit-user
+  [displayModal]="displayModal"
+  (clickClose)="hideEditModal($event)"
+  [selectedUser]="selectedAnimal"
+></app-add-edit-user>
+
+<p-toast position="top-right" key="myKey1"></p-toast>
+<p-confirmDialog
+  header="Potwierdzenie"
+  acceptLabel="Tak"
+  rejectLabel="Nie"
+  icon="pi pi-exclamation-triangle"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+>
+  Content
+</p-confirmDialog>
