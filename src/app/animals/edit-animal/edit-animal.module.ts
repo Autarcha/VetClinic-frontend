@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { EditAnimalComponent } from './edit-animal.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [EditAnimalComponent],
@@ -14,6 +15,7 @@ import { EditAnimalComponent } from './edit-animal.component';
     ButtonModule,
     ReactiveFormsModule,
     ToastModule,
+    InputTextareaModule,
   ],
   exports: [EditAnimalComponent],
 })

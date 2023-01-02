@@ -8,8 +8,8 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-import { AddEditUserModule } from '../users/add-edit-user/add-edit-user.module';
 import { AnimalsComponent } from './animals.component';
+import { EditAnimalModule } from './edit-animal/edit-animal.module';
 
 @NgModule({
   declarations: [AnimalsComponent],
@@ -17,7 +17,7 @@ import { AnimalsComponent } from './animals.component';
     CommonModule,
     ButtonModule,
     DialogModule,
-    AddEditUserModule,
+    EditAnimalModule,
     ToastModule,
     TableModule,
     InputTextModule,

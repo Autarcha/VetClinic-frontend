@@ -1,21 +1,16 @@
-import { UserDetails } from './userDetailsModel';
-
-export class Animal {
-  public id: number;
-  public owner: UserDetails;
+export class AnimalDetails {
+  public ownerId: number;
   public name: string;
   public specie: string;
   public additionalInfo: string;
 
   constructor(
-    id: number,
-    owner: UserDetails,
+    ownerId: number,
     name: string,
     specie: string,
     additionalInfo: string
   ) {
-    this.id = id;
-    this.owner = owner;
+    this.ownerId = ownerId;
     this.name = name;
     this.specie = specie;
     this.additionalInfo = additionalInfo;

@@ -1,1 +1,111 @@
-<p>edit-animal works!</p>
+<p-dialog
+  header="Edytuj zwierzę"
+  [(visible)]="displayModal"
+  [style]="{ width: '50vw' }"
+  (onHide)="closeModal()"
+>
+  <form
+    class="col-lg-6 col-md-8 col-sm-10 col-12 m-auto"
+    [formGroup]="animalForm"
+    (ngSubmit)="editAnimal()"
+  >
+    <div>
+      <label>Właściciel</label>
+    </div>
+    <p *ngIf="selectedAnimal">
+      {{ selectedAnimal.owner.name + " " + selectedAnimal.owner.surname }}
+    </p>
+    <div class="form-group mt-4">
+      <label for="name">Imię zwierzaka</label>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        id="name"
+        required
+        minlength="3"
+        formControlName="name"
+      />
+      <div
+        *ngIf="
+          !animalForm.controls['name'].valid &&
+          (animalForm.controls['name'].dirty ||
+            animalForm.controls['name'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="animalForm.controls['name'].errors?.['required']"
+        >
+          Imię jest wymagane
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="animalForm.controls['name'].errors?.['pattern']"
+        >
+          Imię musi rozpoczynać sie od wielkiej litery i nie może zawierać
+          żadnych cyfr ani znaków specjalnych
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="specie">Rasa</label>
+      <input
+        type="text"
+        class="form-control"
+        id="specie"
+        required
+        formControlName="specie"
+      />
+      <div
+        *ngIf="
+          !animalForm.controls['specie'].valid &&
+          (animalForm.controls['specie'].dirty ||
+            animalForm.controls['specie'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="animalForm.controls['specie'].errors?.['required']"
+        >
+          Rasa jest wymagana
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="additionalInfo">Dodatkowe informacje</label>
+      <textarea
+        pInputTextarea
+        name="additionalInfo"
+        id="additionalInfo"
+        formControlName="additionalInfo"
+        class="form-control"
+      ></textarea>
+      <div
+        *ngIf="
+          !animalForm.controls['additionalInfo'].valid &&
+          (animalForm.controls['additionalInfo'].dirty ||
+            animalForm.controls['additionalInfo'].touched)
+        "
+      ></div>
+    </div>
+    <div class="text-center">
+      <button
+        type="submit"
+        class="btn btn-dark mt-4 form-control"
+        [disabled]="!animalForm.valid"
+      >
+        Edytuj zwierzę
+      </button>
+    </div>
+  </form>
+  <p-button
+    iconPos="left"
+    class="mt-3"
+    style="float: right"
+    icon="pi pi-check"
+    (click)="closeModal()"
+    label="Zakończ"
+    styleClass="p-button-text"
+  ></p-button>
+</p-dialog>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiUrl } from '../app.module';
 import { Animal } from '../models/animalModel';
+import { AnimalDetails } from '../models/animalDetails';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +16,15 @@ export class AnimalService {
     return this.httpClient.get<Animal[]>(apiUrl + '/Animals/' + ownerId);
   }
 
-  editAnimal(animalData: Animal) {
-    return this.httpClient.put<Animal>(apiUrl + '/Animals', animalData);
+  editAnimal(animalData: AnimalDetails, animalId: number) {
+    return this.httpClient.put<AnimalDetails>(
+      apiUrl + '/Animals/' + animalId,
+      animalData
+    );
   }
 
-  addAnimal(animalData: Animal) {
-    return this.httpClient.post<Animal>(apiUrl + '/Animals', animalData);
+  addAnimal(animalData: AnimalDetails) {
+    return this.httpClient.post<AnimalDetails>(apiUrl + '/Animals', animalData);
   }
   constructor(private httpClient: HttpClient) {}
 }
