@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { AuthResult } from '../services/authModel';
+import { AuthResult } from '../models/authModel';
 import { Router } from '@angular/router';
 
 @Component({
