@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-edit-user.css'],
 })
 export class AddEditUserComponent implements OnInit, OnChanges {
-  @Input() displayModal: boolean = true;
+  @Input() displayAddEditUserModal: boolean = true;
   @Input() selectedUser: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   modalType = 'Zarejestruj';

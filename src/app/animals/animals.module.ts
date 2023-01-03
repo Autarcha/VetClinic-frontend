@@ -10,6 +10,7 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { AnimalsComponent } from './animals.component';
 import { EditAnimalModule } from './edit-animal/edit-animal.module';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [AnimalsComponent],
@@ -22,6 +23,7 @@ import { EditAnimalModule } from './edit-animal/edit-animal.module';
     TableModule,
     InputTextModule,
     ConfirmDialogModule,
+    RippleModule,
   ],
   providers: [MessageService, ConfirmationService],
   exports: [AnimalsComponent],

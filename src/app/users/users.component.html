@@ -13,7 +13,7 @@
         <h5 class="m-0 pt-3">Zarządzaj użytkownikami</h5>
         <p-button
           label="Dodaj użytkownika"
-          (click)="showRegisterModal()"
+          (click)="showAddUserModal()"
         ></p-button>
       </div>
     </ng-template>
@@ -44,7 +44,7 @@
         <td *ngFor="let col of cols">
           {{ user[col.field] }}
         </td>
-        <td>
+        <td *ngIf="user.role === 4">
           <p-button
             label="Dodaj zwierzę"
             (click)="showAddAnimalModal(user)"
@@ -55,7 +55,7 @@
             pButton
             pRipple
             icon="pi pi-pencil"
-            (click)="showEditModal(user)"
+            (click)="showEditUserModal(user)"
             class="p-button-rounded p-button-success me-2 position-static"
           ></button>
           <button
@@ -73,14 +73,14 @@
 </div>
 
 <app-add-edit-user
-  [displayModal]="displayModal"
-  (clickClose)="hideModal($event)"
+  [displayAddEditUserModal]="displayAddEditUserModal"
+  (clickClose)="hideAddEditUserModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-edit-user>
 
 <app-add-animal
-  [displayModal]="displayModal"
-  (clickClose)="hideModal($event)"
+  [displayAddAnimalModal]="displayAddAnimalModal"
+  (clickClose)="hideAddAnimalModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-animal>
 

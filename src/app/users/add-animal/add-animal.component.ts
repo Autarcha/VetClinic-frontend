@@ -10,7 +10,7 @@ import { AnimalDetails } from '../../models/animalDetails';
   styleUrls: ['./add-animal.component.css'],
 })
 export class AddAnimalComponent implements OnInit {
-  @Input() displayModal: boolean = true;
+  @Input() displayAddAnimalModal: boolean = true;
   @Input() selectedUser: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 

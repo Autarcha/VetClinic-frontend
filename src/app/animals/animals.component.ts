@@ -31,24 +31,16 @@ export class AnimalsComponent implements OnInit {
       this.userId = user ? user.id : 0;
     });
 
-    if (this.userRole === 4) {
-      this.getCustomerAnimals();
-    } else this.getAllAnimals();
+    this.getAnimals();
   }
 
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();
   }
 
-  getAllAnimals() {
+  getAnimals() {
     this.animalService
       .getAllAnimals()
-      .subscribe((response) => (this.animals = response));
-  }
-
-  getCustomerAnimals() {
-    this.animalService
-      .getCustomerAnimals(this.userId)
       .subscribe((response) => (this.animals = response));
   }
 
@@ -59,8 +51,6 @@ export class AnimalsComponent implements OnInit {
 
   hideEditModal(isClosed: boolean) {
     this.displayModal = false;
-    if (this.userRole === 4) {
-      this.getCustomerAnimals();
-    } else this.getAllAnimals();
+    this.getAnimals();
   }
 }

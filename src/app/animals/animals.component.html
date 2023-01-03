@@ -17,7 +17,7 @@
         <th pSortableColumn="id">
           Id Zwierzęcia<p-sortIcon field="id"></p-sortIcon>
         </th>
-        <th>Właściciel</th>
+        <th *ngIf="userRole !== 4">Właściciel</th>
         <th pSortableColumn="name">
           Imię<p-sortIcon field="name"></p-sortIcon>
         </th>
@@ -37,7 +37,7 @@
             (input)="at.filter(idInput.value, 'id', 'contains')"
           />
         </th>
-        <th>
+        <th *ngIf="userRole !== 4">
           <input
             pInputText
             type="text"
@@ -71,7 +71,7 @@
         <td>
           {{ animal.id }}
         </td>
-        <td>
+        <td *ngIf="userRole !== 4">
           {{ animal.owner.name + " " + animal.owner.surname }}
         </td>
         <td>

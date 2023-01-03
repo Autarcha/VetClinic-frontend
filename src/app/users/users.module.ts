@@ -11,6 +11,7 @@ import { UsersComponent } from './users.component';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { AddAnimalModule } from './add-animal/add-animal.module';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [UsersComponent],
@@ -24,6 +25,7 @@ import { AddAnimalModule } from './add-animal/add-animal.module';
     InputTextModule,
     ConfirmDialogModule,
     AddAnimalModule,
+    RippleModule,
   ],
   providers: [MessageService, ConfirmationService],
   exports: [UsersComponent],
