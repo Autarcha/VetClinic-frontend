@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { UserDetails } from '../models/userDetailsModel';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -44,12 +43,17 @@ export class UsersComponent implements OnInit {
     this.selectedUser = null;
   }
 
-  hideRegisterModal(isClosed: boolean) {
+  hideModal(isClosed: boolean) {
     this.displayModal = false;
     this.getAllUsers();
   }
 
   showEditModal(user: UserDetails) {
+    this.displayModal = true;
+    this.selectedUser = user;
+  }
+
+  showAddAnimalModal(user: UserDetails) {
     this.displayModal = true;
     this.selectedUser = user;
   }

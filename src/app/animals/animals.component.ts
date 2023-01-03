@@ -4,7 +4,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AnimalService } from '../services/animal.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
-import { UserDetails } from '../models/userDetailsModel';
 
 @Component({
   selector: 'app-animals',
@@ -16,7 +15,7 @@ export class AnimalsComponent implements OnInit {
   animals: Animal[] = [];
   displayModal: boolean = false;
   private userSubscription: Subscription | null = null;
-  private userRole: number = 0;
+  public userRole: number = 0;
   private userId: number = 0;
 
   constructor(
@@ -32,7 +31,7 @@ export class AnimalsComponent implements OnInit {
       this.userId = user ? user.id : 0;
     });
 
-    if (this.userId === 4) {
+    if (this.userRole === 4) {
       this.getCustomerAnimals();
     } else this.getAllAnimals();
   }
@@ -60,7 +59,7 @@ export class AnimalsComponent implements OnInit {
 
   hideEditModal(isClosed: boolean) {
     this.displayModal = false;
-    if (this.userId === 4) {
+    if (this.userRole === 4) {
       this.getCustomerAnimals();
     } else this.getAllAnimals();
   }

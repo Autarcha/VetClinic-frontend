@@ -4,7 +4,7 @@
     [value]="users"
     [rows]="10"
     [paginator]="true"
-    [tableStyle]="{ 'min-width': '85rem' }"
+    [tableStyle]="{ 'min-width': '120rem' }"
     [rowHover]="true"
     dataKey="id"
   >
@@ -23,6 +23,7 @@
           {{ col.header }} <p-sortIcon field="{{ col.field }}"></p-sortIcon>
         </th>
         <th></th>
+        <th></th>
       </tr>
 
       <tr>
@@ -35,12 +36,19 @@
           />
         </th>
         <th></th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>
       <tr>
         <td *ngFor="let col of cols">
           {{ user[col.field] }}
+        </td>
+        <td>
+          <p-button
+            label="Dodaj zwierzę"
+            (click)="showAddAnimalModal(user)"
+          ></p-button>
         </td>
         <td>
           <button
@@ -66,9 +74,15 @@
 
 <app-add-edit-user
   [displayModal]="displayModal"
-  (clickClose)="hideRegisterModal($event)"
+  (clickClose)="hideModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-edit-user>
+
+<app-add-animal
+  [displayModal]="displayModal"
+  (clickClose)="hideModal($event)"
+  [selectedUser]="selectedUser"
+></app-add-animal>
 
 <p-toast position="top-right" key="myKey1"></p-toast>
 <p-confirmDialog

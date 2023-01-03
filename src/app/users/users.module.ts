@@ -10,6 +10,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { UsersComponent } from './users.component';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { AddAnimalModule } from './add-animal/add-animal.module';
 
 @NgModule({
   declarations: [UsersComponent],
@@ -22,6 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
     TableModule,
     InputTextModule,
     ConfirmDialogModule,
+    AddAnimalModule,
   ],
   providers: [MessageService, ConfirmationService],
   exports: [UsersComponent],

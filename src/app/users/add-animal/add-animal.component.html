@@ -1,5 +1,5 @@
 <p-dialog
-  header="Edytuj informacje o zwierzęciu"
+  header="Dodaj zwierzę"
   [(visible)]="displayModal"
   [style]="{ width: '50vw' }"
   (onHide)="closeModal()"
@@ -12,9 +12,28 @@
     <div>
       <label>Właściciel</label>
 
-      <p *ngIf="selectedAnimal">
-        {{ selectedAnimal.owner.name + " " + selectedAnimal.owner.surname }}
+      <p *ngIf="selectedUser">
+        {{ selectedUser.name + " " + selectedUser.surname }}
       </p>
+    </div>
+    <div class="form-group mt-4">
+      <label for="ownerId">ID właściciela</label>
+      <input
+        name="ownerId"
+        id="ownerId"
+        formControlName="ownerId"
+        class="form-control"
+        required
+        readonly
+        style="background-color: lightgray"
+      />
+      <div
+        *ngIf="
+          !animalForm.controls['additionalInfo'].valid &&
+          (animalForm.controls['additionalInfo'].dirty ||
+            animalForm.controls['additionalInfo'].touched)
+        "
+      ></div>
     </div>
     <div class="form-group mt-4">
       <label for="name">Imię zwierzaka</label>
@@ -96,7 +115,7 @@
         class="btn btn-dark mt-4 form-control"
         [disabled]="!animalForm.valid"
       >
-        Edytuj informacje
+        Dodaj zwierzę
       </button>
     </div>
   </form>

@@ -1,12 +1,11 @@
 <div class="card m-5">
   <p-table
-    #dt
+    #at
     [value]="animals"
     [rows]="10"
     [paginator]="true"
     [tableStyle]="{ 'min-width': '85rem' }"
     [rowHover]="true"
-    dataKey="id"
   >
     <ng-template pTemplate="caption">
       <div class="d-flex justify-content-between mt-3">
@@ -18,9 +17,7 @@
         <th pSortableColumn="id">
           Id Zwierzęcia<p-sortIcon field="id"></p-sortIcon>
         </th>
-        <th pSortableColumn="owner">
-          Właściciel<p-sortIcon field="owner"></p-sortIcon>
-        </th>
+        <th>Właściciel</th>
         <th pSortableColumn="name">
           Imię<p-sortIcon field="name"></p-sortIcon>
         </th>
@@ -36,32 +33,33 @@
           <input
             pInputText
             type="text"
-            #dtInput
-            (input)="dt.filter(dtInput.value, 'id', 'contains')"
+            #idInput
+            (input)="at.filter(idInput.value, 'id', 'contains')"
           />
         </th>
         <th>
           <input
             pInputText
             type="text"
-            #dtInput
-            (input)="dt.filter(dtInput.value, 'owner', 'contains')"
+            placeholder="Filtr nazwisk"
+            #ownerInput
+            (input)="at.filter(ownerInput.value, 'owner.surname', 'contains')"
           />
         </th>
         <th>
           <input
             pInputText
             type="text"
-            #dtInput
-            (input)="dt.filter(dtInput.value, 'name', 'contains')"
+            #nameInput
+            (input)="at.filter(nameInput.value, 'name', 'contains')"
           />
         </th>
         <th>
           <input
             pInputText
             type="text"
-            #dtInput
-            (input)="dt.filter(dtInput.value, 'specie', 'contains')"
+            #specieInput
+            (input)="at.filter(specieInput.value, 'specie', 'contains')"
           />
         </th>
         <th></th>
@@ -85,7 +83,7 @@
         <td>
           {{ animal.additionalInfo }}
         </td>
-        <td>
+        <td *ngIf="userRole !== 4">
           <button
             pButton
             pRipple
