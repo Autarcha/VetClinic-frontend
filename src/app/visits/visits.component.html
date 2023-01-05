@@ -14,15 +14,9 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="employee.surname">
-          Lekarz<p-sortIcon field="employee.surname"></p-sortIcon>
-        </th>
-        <th *ngIf="userRole !== 4" pSortableColumn="customer.surname">
-          Klient<p-sortIcon field="customer.surname"></p-sortIcon>
-        </th>
-        <th pSortableColumn="animal.name">
-          Zwierzę<p-sortIcon field="animal.name"></p-sortIcon>
-        </th>
+        <th>Lekarz</th>
+        <th *ngIf="userRole !== 4">Klient</th>
+        <th>Zwierzę</th>
         <th pSortableColumn="visitDateTime">
           Data wizyty<p-sortIcon field="visitDateTime"></p-sortIcon>
         </th>
@@ -82,10 +76,27 @@
           <span>{{ visit.animal ? visit.animal.name : "Nie przypisano" }}</span>
         </td>
         <td>
-          {{ visit.visitDateTime }}
+          {{ visit.visitDateTime | date : "dd/MM/yyyy HH:mm" }}
         </td>
         <td>
-          {{ visit.visitStatus }}
+          <button
+            *ngIf="visit.visitStatus === 1"
+            class="bg-warning text-white rounded-5 border-0"
+          >
+            {{ visitStatusesMapping[visit.visitStatus] }}
+          </button>
+          <button
+            *ngIf="visit.visitStatus === 2"
+            class="bg-danger text-white rounded-5 border-0"
+          >
+            {{ visitStatusesMapping[visit.visitStatus] }}
+          </button>
+          <button
+            *ngIf="visit.visitStatus === 4"
+            class="bg-success text-white rounded-5 border-0"
+          >
+            {{ visitStatusesMapping[visit.visitStatus] }}
+          </button>
         </td>
         <td>
           <a href="*">Przejdź do szczegółów wizyty</a>

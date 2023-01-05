@@ -4,6 +4,7 @@ import { Visit } from '../models/visitModel';
 import { Subscription } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { UserService } from '../services/user.service';
+import { VisitStatusesMapping } from '../enums/visitStatusesEnum';
 
 @Component({
   selector: 'app-visits',
@@ -14,6 +15,7 @@ export class VisitsComponent implements OnInit {
   selectedVisit: any = null;
   visits: Visit[] = [];
   displayModal: boolean = false;
+  public visitStatusesMapping: any = VisitStatusesMapping;
   private userSubscription: Subscription | null = null;
   public userRole: number = 0;
   private userId: number = 0;
