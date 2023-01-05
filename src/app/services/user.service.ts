@@ -18,7 +18,7 @@ export class UserService {
   }
 
   getEmployees() {
-    return this.httpClient.get<UserDetails[]>(apiUrl + '/Users/Emloyees');
+    return this.httpClient.get<UserDetails[]>(apiUrl + '/Users/Employees');
   }
 
   registerUser(userRegister: UserDetails) {

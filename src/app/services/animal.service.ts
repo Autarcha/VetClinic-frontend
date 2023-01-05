@@ -13,7 +13,7 @@ export class AnimalService {
   }
 
   getCustomerAnimals(customerId: number) {
-    return this.httpClient.get<Animal[]>(apiUrl + '/Animals' + customerId);
+    return this.httpClient.get<Animal[]>(apiUrl + '/Animals/' + customerId);
   }
 
   editAnimal(animalData: AnimalDetails, animalId: number) {

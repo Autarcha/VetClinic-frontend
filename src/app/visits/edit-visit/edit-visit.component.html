@@ -10,7 +10,7 @@
     (ngSubmit)="editVisit()"
   >
     <div class="form-group mt-4">
-      <label for="employeeId">Pracownik</label>
+      <label for="employeeId">Lekarz</label>
       <select
         formControlName="employeeId"
         name="employeeId"
@@ -18,9 +18,9 @@
         id="employeeId"
         type="number"
       >
-        <option disabled>Wybierz pracownika</option>
+        <option disabled>Wybierz lekarza</option>
         <option *ngFor="let employee of employees" [value]="employee.id">
-          {{ employee.name + "" + employee.surname }}
+          {{ employee.name + " " + employee.surname }}
         </option>
       </select>
       <div
@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="form-group mt-4">
-      <label for="animalId">Klient</label>
+      <label for="animalId">Zwierzę</label>
       <select
         formControlName="animalId"
         name="animalId"
@@ -47,30 +47,28 @@
         id="animalId"
         type="number"
       >
-        <option disabled>Wybierz zwierzę</option>
+        <option disabled [ngValue]="null">Wybierz zwierzę</option>
         <option *ngFor="let animal of customerAnimals" [value]="animal.id">
           {{ "Imię: " + animal.name + " " + "Rasa: " + animal.specie }}
         </option>
       </select>
     </div>
     <div class="form-group mt-4">
-      <label for="visitDateTime">Termin wizyty</label>
-      <p-calendar
-        [(ngModel)]="visit.visitDateTime"
-        [showTime]="true"
-        [showSeconds]="true"
-        name="visitDateTime"
-        inputId="visitDateTime"
-        id="visitDateTime"
+      <label>Data wizyty</label>
+      <br />
+      <p-inputMask
+        mask="9999/99/99 99:99"
+        placeholder="1999/01/01 12:00"
+        slotChar="yyyy/mm/dd MM:hh"
         formControlName="visitDateTime"
-      ></p-calendar>
+      ></p-inputMask>
     </div>
     <div class="form-group mt-4">
       <label for="visitStatus">Status wizyty</label>
       <select
         formControlName="visitStatus"
         name="visitStatus"
-        class="visitStatus"
+        class="form-control"
         id="visitStatus"
         type="visitStatus"
       >
@@ -93,7 +91,6 @@
   <p-button
     iconPos="left"
     class="mt-3"
-    style="float: right"
     icon="pi pi-check"
     (click)="closeModal()"
     label="Zakończ"

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { VisitService } from '../../services/visit.service';
 import { VisitEdit } from '../../models/visitEditModel';
@@ -54,12 +54,17 @@ export class EditVisitComponent implements OnInit {
         });
 
       this.visit = {
-        animalId: this.selectedVisit.animal.id || null,
+        animalID: this.selectedVisit.animal
+          ? this.selectedVisit.animal.id
+          : null,
         visitDateTime: this.selectedVisit.visitDateTime,
-        customerId: this.selectedVisit.customer.id,
         employeeId: this.selectedVisit.employee.id,
         visitStatus: this.selectedVisit.visitStatus,
       };
+
+      console.log(this.visit, 'dupsko');
+
+      this.visitForm.patchValue(this.visit);
     } else {
       this.visitForm.reset();
     }
@@ -67,13 +72,7 @@ export class EditVisitComponent implements OnInit {
 
   visitForm = this.formBuilder.group({
     employeeId: [{ value: 0, disabled: false }, [Validators.required]],
-    customerId: [{ value: 0, disabled: false }, [Validators.required]],
-    animalId: [
-      {
-        value: null,
-        disabled: false,
-      },
-    ],
+    animalId: new FormControl<number | null>(null),
     visitDateTime: [
       {
         value: '',
@@ -86,23 +85,31 @@ export class EditVisitComponent implements OnInit {
 
   closeModal() {
     this.clickClose.emit(true);
+    this.visitForm.reset();
   }
 
   editVisit() {
-    this.visitService
-      .updateVisit(this.selectedVisit.id, this.visitForm.value as VisitEdit)
-      .subscribe(
-        () => {
-          this.visitForm.reset();
-          this.clickClose.emit(true);
-          this.messageService.add({
-            key: 'myKey1',
-            severity: 'success',
-            summary: 'Sukces',
-            detail: 'Pomyśnie zedytowano wizytę',
-          });
-        },
-        (error) => {}
-      );
+    const visitEdit: VisitEdit = {
+      employeeId: this.visitForm.value.employeeId ?? 0,
+      animalID: Number(this.visitForm.value.animalId) ?? null,
+      visitStatus: this.visitForm.value.visitStatus ?? 0,
+      visitDateTime: new Date(
+        this.visitForm.value.visitDateTime ?? '1970/01/01'
+      ).toISOString(),
+    };
+
+    this.visitService.updateVisit(this.selectedVisit.id, visitEdit).subscribe(
+      () => {
+        this.visitForm.reset();
+        this.clickClose.emit(true);
+        this.messageService.add({
+          key: 'myKey1',
+          severity: 'success',
+          summary: 'Sukces',
+          detail: 'Pomyśnie zedytowano wizytę',
+        });
+      },
+      (error) => {}
+    );
   }
 }

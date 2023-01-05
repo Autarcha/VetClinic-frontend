@@ -115,6 +115,12 @@
   </p-table>
 </div>
 
+<app-edit-visit
+  [displayModal]="displayModal"
+  (clickClose)="hideEditModal($event)"
+  [selectedVisit]="selectedVisit"
+></app-edit-visit>
+
 <p-toast position="top-right" key="myKey1"></p-toast>
 <p-confirmDialog
   header="Potwierdzenie"

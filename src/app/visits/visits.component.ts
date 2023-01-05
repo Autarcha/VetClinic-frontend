@@ -41,14 +41,15 @@ export class VisitsComponent implements OnInit {
   }
 
   getVisits() {
-    this.visitService
-      .getAllVisits()
-      .subscribe((response) => (this.visits = response));
+    this.visitService.getAllVisits().subscribe((response) => {
+      this.visits = response;
+    });
   }
 
   showEditModal(visit: Visit) {
-    this.displayModal = true;
+    console.log(visit);
     this.selectedVisit = visit;
+    this.displayModal = true;
   }
 
   hideEditModal(isClosed: boolean) {

@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { CalendarModule } from 'primeng/calendar';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @NgModule({
   declarations: [EditVisitComponent],
@@ -17,8 +17,8 @@ import { CalendarModule } from 'primeng/calendar';
     ReactiveFormsModule,
     ToastModule,
     InputTextareaModule,
-    CalendarModule,
     FormsModule,
+    InputMaskModule,
   ],
   exports: [EditVisitComponent],
 })
