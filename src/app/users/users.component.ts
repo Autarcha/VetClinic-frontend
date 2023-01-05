@@ -25,9 +25,6 @@ export class UsersComponent implements OnInit {
     this.getAllUsers();
 
     this.cols = [
-      { field: 'id', header: 'Id' },
-      { field: 'name', header: 'Imię' },
-      { field: 'surname', header: 'Nazwisko' },
       { field: 'email', header: 'Email' },
       { field: 'phoneNumber', header: 'Numer telefonu' },
     ];
@@ -60,7 +57,7 @@ export class UsersComponent implements OnInit {
   }
 
   hideAddAnimalModal(isClosed: boolean) {
-    this.displayAddEditUserModal = false;
+    this.displayAddAnimalModal = false;
   }
 
   deleteUser(user: UserDetails) {

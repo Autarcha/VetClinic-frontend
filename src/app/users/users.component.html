@@ -4,29 +4,43 @@
     [value]="users"
     [rows]="10"
     [paginator]="true"
-    [tableStyle]="{ 'min-width': '120rem' }"
+    [tableStyle]="{ 'min-width': '85rem' }"
     [rowHover]="true"
     dataKey="id"
   >
     <ng-template pTemplate="caption">
       <div class="d-flex justify-content-between mt-3">
         <h5 class="m-0 pt-3">Zarządzaj użytkownikami</h5>
-        <p-button
-          label="Dodaj użytkownika"
+        <button
+          pButton
+          pRipple
+          icon="pi pi-user-plus"
+          class="p-button-rounded p-button-success me-2 position-static"
           (click)="showAddUserModal()"
-        ></p-button>
+        ></button>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
+        <th pSortableColumn="surname">
+          Użytkownik<p-sortIcon field="surname"></p-sortIcon>
+        </th>
         <th *ngFor="let col of cols" pSortableColumn="{{ col.field }}">
           {{ col.header }} <p-sortIcon field="{{ col.field }}"></p-sortIcon>
         </th>
         <th></th>
-        <th></th>
       </tr>
 
       <tr>
+        <th>
+          <input
+            pInputText
+            type="text"
+            placeholder="Filtr nazwisk"
+            #dtSurnameInput
+            (input)="dt.filter(dtSurnameInput.value, 'surname', 'contains')"
+          />
+        </th>
         <th *ngFor="let col of cols">
           <input
             pInputText
@@ -36,34 +50,42 @@
           />
         </th>
         <th></th>
-        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>
       <tr>
+        <td>{{ user.name + " " + user.surname }}</td>
         <td *ngFor="let col of cols">
           {{ user[col.field] }}
-        </td>
-        <td *ngIf="user.role === 4">
-          <p-button
-            label="Dodaj zwierzę"
-            (click)="showAddAnimalModal(user)"
-          ></p-button>
         </td>
         <td>
           <button
             pButton
             pRipple
+            icon="fa fa-paw"
+            class="p-button-rounded p-button-success me-2 position-static"
+            (click)="showAddAnimalModal(user)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-calendar-plus"
+            class="p-button-rounded p-button-success me-2 position-static"
+            (click)="showAddAnimalModal(user)"
+          ></button>
+          <button
+            pButton
+            pRipple
             icon="pi pi-pencil"
             (click)="showEditUserModal(user)"
-            class="p-button-rounded p-button-success me-2 position-static"
+            class="p-button-rounded p-button-warning me-2 position-static"
           ></button>
           <button
             *ngIf="user.role !== 4"
             pButton
             pRipple
             icon="pi pi-trash"
-            class="p-button-rounded p-button-warning"
+            class="p-button-rounded p-button-danger"
             (click)="deleteUser(user)"
           ></button>
         </td>

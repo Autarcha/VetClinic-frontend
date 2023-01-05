@@ -17,25 +17,6 @@
       </p>
     </div>
     <div class="form-group mt-4">
-      <label for="ownerId">ID właściciela</label>
-      <input
-        name="ownerId"
-        id="ownerId"
-        formControlName="ownerId"
-        class="form-control"
-        required
-        readonly
-        style="background-color: lightgray"
-      />
-      <div
-        *ngIf="
-          !animalForm.controls['additionalInfo'].valid &&
-          (animalForm.controls['additionalInfo'].dirty ||
-            animalForm.controls['additionalInfo'].touched)
-        "
-      ></div>
-    </div>
-    <div class="form-group mt-4">
       <label for="name">Imię zwierzaka</label>
       <input
         type="text"
