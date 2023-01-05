@@ -11,14 +11,20 @@
     <ng-template pTemplate="caption">
       <div class="d-flex justify-content-between mt-3">
         <h5 class="m-0 pt-3">Zarządzaj użytkownikami</h5>
-        <p-button
-          label="Dodaj użytkownika"
-          (click)="showRegisterModal()"
-        ></p-button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-user-plus"
+          class="p-button-rounded p-button-success me-2 position-static"
+          (click)="showAddUserModal()"
+        ></button>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
+        <th pSortableColumn="surname">
+          Użytkownik<p-sortIcon field="surname"></p-sortIcon>
+        </th>
         <th *ngFor="let col of cols" pSortableColumn="{{ col.field }}">
           {{ col.header }} <p-sortIcon field="{{ col.field }}"></p-sortIcon>
         </th>
@@ -26,6 +32,15 @@
       </tr>
 
       <tr>
+        <th>
+          <input
+            pInputText
+            type="text"
+            placeholder="Filtr nazwisk"
+            #dtSurnameInput
+            (input)="dt.filter(dtSurnameInput.value, 'surname', 'contains')"
+          />
+        </th>
         <th *ngFor="let col of cols">
           <input
             pInputText
@@ -39,6 +54,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-user>
       <tr>
+        <td>{{ user.name + " " + user.surname }}</td>
         <td *ngFor="let col of cols">
           {{ user[col.field] }}
         </td>
@@ -46,16 +62,30 @@
           <button
             pButton
             pRipple
-            icon="pi pi-pencil"
-            (click)="showEditModal(user)"
+            icon="fa fa-paw"
             class="p-button-rounded p-button-success me-2 position-static"
+            (click)="showAddAnimalModal(user)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-calendar-plus"
+            class="p-button-rounded p-button-success me-2 position-static"
+            (click)="showAddAnimalModal(user)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            (click)="showEditUserModal(user)"
+            class="p-button-rounded p-button-warning me-2 position-static"
           ></button>
           <button
             *ngIf="user.role !== 4"
             pButton
             pRipple
             icon="pi pi-trash"
-            class="p-button-rounded p-button-warning"
+            class="p-button-rounded p-button-danger"
             (click)="deleteUser(user)"
           ></button>
         </td>
@@ -65,10 +95,16 @@
 </div>
 
 <app-add-edit-user
-  [displayModal]="displayModal"
-  (clickClose)="hideRegisterModal($event)"
+  [displayAddEditUserModal]="displayAddEditUserModal"
+  (clickClose)="hideAddEditUserModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-edit-user>
+
+<app-add-animal
+  [displayAddAnimalModal]="displayAddAnimalModal"
+  (clickClose)="hideAddAnimalModal($event)"
+  [selectedUser]="selectedUser"
+></app-add-animal>
 
 <p-toast position="top-right" key="myKey1"></p-toast>
 <p-confirmDialog

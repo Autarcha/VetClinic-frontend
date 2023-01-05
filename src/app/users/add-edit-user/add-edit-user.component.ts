@@ -10,7 +10,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from '../../models/userDetailsModel';
 import { MessageService } from 'primeng/api';
-import { Roles, RolesMapping } from '../../enums/roles';
+import { RolesEnum, RolesMapping } from '../../enums/rolesEnum';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -19,13 +19,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-edit-user.css'],
 })
 export class AddEditUserComponent implements OnInit, OnChanges {
-  @Input() displayModal: boolean = true;
+  @Input() displayAddEditUserModal: boolean = true;
   @Input() selectedUser: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   modalType = 'Zarejestruj';
   userExists: boolean = false;
   public rolesMapping: any = RolesMapping;
-  public roleTypes: any = Object.values(Roles).filter(
+  public roleTypes: any = Object.values(RolesEnum).filter(
     (value) => typeof value === 'number'
   );
 
@@ -90,7 +90,7 @@ export class AddEditUserComponent implements OnInit, OnChanges {
     ],
     role: [
       {
-        value: Roles.User,
+        value: RolesEnum.User,
         disabled: false,
       },
     ],

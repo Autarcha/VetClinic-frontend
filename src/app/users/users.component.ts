@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { UserDetails } from '../models/userDetailsModel';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +12,8 @@ export class UsersComponent implements OnInit {
   selectedUser: any = null;
   users: UserDetails[] = [];
   cols: any[];
-  displayModal: boolean = false;
+  displayAddEditUserModal: boolean = false;
+  displayAddAnimalModal: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -25,9 +25,6 @@ export class UsersComponent implements OnInit {
     this.getAllUsers();
 
     this.cols = [
-      { field: 'id', header: 'Id' },
-      { field: 'name', header: 'Imię' },
-      { field: 'surname', header: 'Nazwisko' },
       { field: 'email', header: 'Email' },
       { field: 'phoneNumber', header: 'Numer telefonu' },
     ];
@@ -39,19 +36,28 @@ export class UsersComponent implements OnInit {
       .subscribe((response) => (this.users = response));
   }
 
-  showRegisterModal() {
-    this.displayModal = true;
+  showAddUserModal() {
+    this.displayAddEditUserModal = true;
     this.selectedUser = null;
   }
 
-  hideRegisterModal(isClosed: boolean) {
-    this.displayModal = false;
+  hideAddEditUserModal(isClosed: boolean) {
+    this.displayAddEditUserModal = false;
     this.getAllUsers();
   }
 
-  showEditModal(user: UserDetails) {
-    this.displayModal = true;
+  showEditUserModal(user: UserDetails) {
+    this.displayAddEditUserModal = true;
     this.selectedUser = user;
+  }
+
+  showAddAnimalModal(user: UserDetails) {
+    this.displayAddAnimalModal = true;
+    this.selectedUser = user;
+  }
+
+  hideAddAnimalModal(isClosed: boolean) {
+    this.displayAddAnimalModal = false;
   }
 
   deleteUser(user: UserDetails) {

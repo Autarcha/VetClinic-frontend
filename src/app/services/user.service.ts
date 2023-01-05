@@ -3,10 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { apiUrl } from '../app.module';
 import { AppUser } from '../models/appUserModel';
-import { AuthResult } from './authModel';
+import { AuthResult } from '../models/authModel';
 import { Router } from '@angular/router';
-import { UserProfile } from '../models/userProfileModel';
-import { UserChangePassword } from '../models/userChangePasswordModel';
 import { UserDetails } from '../models/userDetailsModel';
 
 @Injectable({
