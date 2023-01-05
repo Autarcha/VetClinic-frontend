@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { apiUrl } from '../app.module';
 import { HttpClient } from '@angular/common/http';
-import { Visits } from '../models/visitsModel';
-import { VisitAddEdit } from '../models/visitAddEditModel';
+import { Visit } from '../models/visitModel';
+import { VisitEdit } from '../models/visitEditModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VisitService {
   getAllVisits() {
-    return this.httpClient.get<Visits[]>(apiUrl + '/Visits');
+    return this.httpClient.get<Visit[]>(apiUrl + '/Visits');
   }
 
-  addVisit(visitBody: VisitAddEdit) {
-    return this.httpClient.post<VisitAddEdit>(apiUrl + '/Visits', visitBody);
+  addVisit(visitBody: VisitEdit) {
+    return this.httpClient.post<VisitEdit>(apiUrl + '/Visits', visitBody);
   }
 
-  updateVisit(visitId: number, visitBody: VisitAddEdit) {
-    return this.httpClient.put<VisitAddEdit>(
+  updateVisit(visitId: number, visitBody: VisitEdit) {
+    return this.httpClient.put<VisitEdit>(
       apiUrl + '/Visits/' + visitId,
       visitBody
     );

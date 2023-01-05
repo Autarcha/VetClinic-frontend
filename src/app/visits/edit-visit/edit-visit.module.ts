@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { EditVisitComponent } from './edit-visit.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [EditVisitComponent],
@@ -16,6 +17,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     ReactiveFormsModule,
     ToastModule,
     InputTextareaModule,
+    CalendarModule,
+    FormsModule,
   ],
   exports: [EditVisitComponent],
 })

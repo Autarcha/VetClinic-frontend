@@ -2,14 +2,14 @@ import { UserDetails } from './userDetailsModel';
 import { Animal } from './animalModel';
 import { VisitDetails } from './visitDetailsModel';
 
-export class Visits {
+export class Visit {
   public id: number;
   public employee: UserDetails;
   public customer: UserDetails;
   public animal?: Animal;
   public visitDateTime: string;
   public visitStatus: number;
-  public VisitDetails?: VisitDetails;
+  public visitDetails?: VisitDetails;
 
   constructor(
     id: number,
@@ -26,6 +26,6 @@ export class Visits {
     this.visitStatus = visitStatus;
     this.visitDateTime = visitDateTime;
     this.animal = animal;
-    this.VisitDetails = visitDetails;
+    this.visitDetails = visitDetails;
   }
 }

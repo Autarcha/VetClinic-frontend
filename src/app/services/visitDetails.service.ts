@@ -6,7 +6,7 @@ import { VisitDetails } from '../models/visitDetailsModel';
 @Injectable({
   providedIn: 'root',
 })
-export class VisitService {
+export class VisitDetailsService {
   addVisitDetails(visitId: number, visitDetails: VisitDetails) {
     return this.httpClient.post<VisitDetails>(
       apiUrl + '/visits/' + visitId + '/details',

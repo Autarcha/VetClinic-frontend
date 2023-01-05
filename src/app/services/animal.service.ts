@@ -12,6 +12,10 @@ export class AnimalService {
     return this.httpClient.get<Animal[]>(apiUrl + '/Animals');
   }
 
+  getCustomerAnimals(customerId: number) {
+    return this.httpClient.get<Animal[]>(apiUrl + '/Animals' + customerId);
+  }
+
   editAnimal(animalData: AnimalDetails, animalId: number) {
     return this.httpClient.put<AnimalDetails>(
       apiUrl + '/Animals/' + animalId,

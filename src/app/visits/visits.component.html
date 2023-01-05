@@ -1,1 +1,117 @@
-<p>visits works!</p>
+<div class="card m-5">
+  <p-table
+    #at
+    [value]="visits"
+    [rows]="10"
+    [paginator]="true"
+    [tableStyle]="{ 'min-width': '100rem' }"
+    [rowHover]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-flex justify-content-between mt-3">
+        <h5 class="m-0 pt-3">Wizyty</h5>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="employee.surname">
+          Lekarz<p-sortIcon field="employee.surname"></p-sortIcon>
+        </th>
+        <th *ngIf="userRole !== 4" pSortableColumn="customer.surname">
+          Klient<p-sortIcon field="customer.surname"></p-sortIcon>
+        </th>
+        <th pSortableColumn="animal.name">
+          Zwierzę<p-sortIcon field="animal.name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="visitDateTime">
+          Data wizyty<p-sortIcon field="visitDateTime"></p-sortIcon>
+        </th>
+        <th pSortableColumn="visitStatus">
+          Status wizyty<p-sortIcon field="visitStatus"></p-sortIcon>
+        </th>
+        <th>Szczegóły wizyty</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>
+          <input
+            pInputText
+            type="text"
+            placeholder="Filtr nazwisk"
+            #employeeInput
+            (input)="
+              at.filter(employeeInput.value, 'employee.surname', 'contains')
+            "
+          />
+        </th>
+        <th *ngIf="userRole !== 4">
+          <input
+            pInputText
+            type="text"
+            placeholder="Filtr nazwisk"
+            #customerInput
+            (input)="
+              at.filter(customerInput.value, 'customer.surname', 'contains')
+            "
+          />
+        </th>
+        <th>
+          <input
+            pInputText
+            type="text"
+            placeholder="Filtr imion"
+            #animalInput
+            (input)="at.filter(animalInput.value, 'animal.name', 'contains')"
+          />
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-visit>
+      <tr>
+        <td>
+          {{ visit.employee.name + " " + visit.employee.surname }}
+        </td>
+        <td *ngIf="userRole !== 4">
+          {{ visit.customer.name + " " + visit.customer.surname }}
+        </td>
+        <td>
+          <span>{{ visit.animal ? visit.animal.name : "Nie przypisano" }}</span>
+        </td>
+        <td>
+          {{ visit.visitDateTime }}
+        </td>
+        <td>
+          {{ visit.visitStatus }}
+        </td>
+        <td>
+          <a href="*">Przejdź do szczegółów wizyty</a>
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            (click)="showEditModal(visit)"
+            class="p-button-rounded p-button-warning me-2 position-static"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-toast position="top-right" key="myKey1"></p-toast>
+<p-confirmDialog
+  header="Potwierdzenie"
+  acceptLabel="Tak"
+  rejectLabel="Nie"
+  icon="pi pi-exclamation-triangle"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+>
+  Content
+</p-confirmDialog>
