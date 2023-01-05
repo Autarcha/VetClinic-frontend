@@ -17,6 +17,10 @@ export class UserService {
     return this.httpClient.get<UserDetails[]>(apiUrl + '/Users');
   }
 
+  getEmployees() {
+    return this.httpClient.get<UserDetails[]>(apiUrl + '/Users/Emloyees');
+  }
+
   registerUser(userRegister: UserDetails) {
     return this.httpClient.post<UserDetails>(
       apiUrl + '/Users/Register',
