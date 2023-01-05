@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersModule } from './users/users.module';
 import { AnimalsModule } from './animals/animals.module';
+import { VisitsModule } from './visits/visits.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AnimalsModule } from './animals/animals.module';
     BrowserAnimationsModule,
     UsersModule,
     AnimalsModule,
+    VisitsModule,
   ],
   providers: [
     {
