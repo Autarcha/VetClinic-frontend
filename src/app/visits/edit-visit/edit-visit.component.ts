@@ -54,7 +54,7 @@ export class EditVisitComponent implements OnInit {
         });
 
       this.visit = {
-        animalID: this.selectedVisit.animal
+        animalId: this.selectedVisit.animal
           ? this.selectedVisit.animal.id
           : null,
         visitDateTime: this.selectedVisit.visitDateTime,
@@ -88,14 +88,26 @@ export class EditVisitComponent implements OnInit {
     this.visitForm.reset();
   }
 
+  getLocalISOString(date: Date) {
+    const offset = date.getTimezoneOffset();
+    const offsetAbs = Math.abs(offset);
+    const isoString = new Date(
+      date.getTime() - offset * 60 * 1000
+    ).toISOString();
+    return `${isoString.slice(0, -1)}${offset > 0 ? '-' : '+'}${String(
+      Math.floor(offsetAbs / 60)
+    ).padStart(2, '0')}:${String(offsetAbs % 60).padStart(2, '0')}`;
+  }
+
   editVisit() {
+    const date = new Date(this.visitForm.value.visitDateTime ?? '1970/01/01');
+    const visitDate = this.getLocalISOString(date);
+
     const visitEdit: VisitEdit = {
       employeeId: this.visitForm.value.employeeId ?? 0,
-      animalID: Number(this.visitForm.value.animalId) ?? null,
+      animalId: Number(this.visitForm.value.animalId) ?? null,
       visitStatus: this.visitForm.value.visitStatus ?? 0,
-      visitDateTime: new Date(
-        this.visitForm.value.visitDateTime ?? '1970/01/01'
-      ).toISOString(),
+      visitDateTime: visitDate ?? '1970/01/01',
     };
 
     this.visitService.updateVisit(this.selectedVisit.id, visitEdit).subscribe(

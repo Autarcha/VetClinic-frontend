@@ -1,6 +1,6 @@
 export class VisitEdit {
   public employeeId: number;
-  public animalID: number | null;
+  public animalId: number | null;
   public visitDateTime: string;
   public visitStatus: number;
 
@@ -8,11 +8,11 @@ export class VisitEdit {
     employeeId: number,
     visitDateTime: string,
     visitStatus: number,
-    animalID: number | null
+    animalId: number | null
   ) {
     this.employeeId = employeeId;
     this.visitDateTime = visitDateTime;
     this.visitStatus = visitStatus;
-    this.animalID = animalID;
+    this.animalId = animalId;
   }
 }
