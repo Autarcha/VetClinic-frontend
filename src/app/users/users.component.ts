@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { UserDetails } from '../models/userDetailsModel';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -15,6 +16,8 @@ export class UsersComponent implements OnInit {
   displayAddEditUserModal: boolean = false;
   displayAddAnimalModal: boolean = false;
   displayAddVisitModal: boolean = false;
+  private userSubscription: Subscription | null = null;
+  public userRole: number = 0;
 
   constructor(
     private userService: UserService,
@@ -25,10 +28,18 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.getAllUsers();
 
+    this.userSubscription = this.userService.currentUser.subscribe((user) => {
+      this.userRole = user ? user.role : 0;
+    });
+
     this.cols = [
       { field: 'email', header: 'Email' },
       { field: 'phoneNumber', header: 'Numer telefonu' },
     ];
+  }
+
+  ngOnDestroy() {
+    this.userSubscription?.unsubscribe();
   }
 
   getAllUsers() {

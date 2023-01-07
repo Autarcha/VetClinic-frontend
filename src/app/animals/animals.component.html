@@ -84,6 +84,7 @@
 </div>
 
 <app-edit-animal
+  *ngIf="userRole !== 4"
   [displayModal]="displayModal"
   (clickClose)="hideEditModal($event)"
   [selectedAnimal]="selectedAnimal"

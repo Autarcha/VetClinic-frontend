@@ -58,7 +58,7 @@
         <td *ngFor="let col of cols">
           {{ user[col.field] }}
         </td>
-        <td>
+        <td *ngIf="userRole !== 4">
           <button
             pButton
             pRipple
@@ -95,18 +95,21 @@
 </div>
 
 <app-add-edit-user
+  *ngIf="userRole !== 4"
   [displayAddEditUserModal]="displayAddEditUserModal"
   (clickClose)="hideAddEditUserModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-edit-user>
 
 <app-add-animal
+  *ngIf="userRole !== 4"
   [displayAddAnimalModal]="displayAddAnimalModal"
   (clickClose)="hideAddAnimalModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-animal>
 
 <app-add-visit
+  *ngIf="userRole !== 4"
   [displayAddVisitModal]="displayAddVisitModal"
   (clickClose)="hideAddVisitModal($event)"
   [selectedUser]="selectedUser"

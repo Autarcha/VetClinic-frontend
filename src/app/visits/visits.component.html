@@ -24,7 +24,7 @@
           Status wizyty<p-sortIcon field="visitStatus"></p-sortIcon>
         </th>
         <th>Szczegóły wizyty</th>
-        <th></th>
+        <th *ngIf="userRole !== 4"></th>
       </tr>
       <tr>
         <th>
@@ -61,7 +61,7 @@
         <th></th>
         <th></th>
         <th></th>
-        <th></th>
+        <th *ngIf="userRole !== 4"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-visit>
@@ -112,7 +112,7 @@
             >Przejdź do szczegółów wizyty</a
           >
         </td>
-        <td>
+        <td *ngIf="userRole !== 4">
           <button
             pButton
             pRipple
@@ -127,6 +127,7 @@
 </div>
 
 <app-edit-visit
+  *ngIf="userRole !== 4"
   [displayModal]="displayModal"
   (clickClose)="hideEditModal($event)"
   [selectedVisit]="selectedVisit"
