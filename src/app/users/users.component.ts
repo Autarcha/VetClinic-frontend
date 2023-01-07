@@ -14,6 +14,7 @@ export class UsersComponent implements OnInit {
   cols: any[];
   displayAddEditUserModal: boolean = false;
   displayAddAnimalModal: boolean = false;
+  displayAddVisitModal: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -58,6 +59,15 @@ export class UsersComponent implements OnInit {
 
   hideAddAnimalModal(isClosed: boolean) {
     this.displayAddAnimalModal = false;
+  }
+
+  showAddVisitModal(user: UserDetails) {
+    this.displayAddVisitModal = true;
+    this.selectedUser = user;
+  }
+
+  hideAddVisitModal(isClosed: boolean) {
+    this.displayAddVisitModal = false;
   }
 
   deleteUser(user: UserDetails) {

@@ -44,7 +44,7 @@ export class LoginComponent {
           this.router.navigate(['/home']);
         },
         (error) => {
-          if (error.status === 403) {
+          if (error.status === 500) {
             this.userNotFound = true;
           }
         }

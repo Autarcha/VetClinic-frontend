@@ -47,7 +47,6 @@ export class VisitsComponent implements OnInit {
   }
 
   showEditModal(visit: Visit) {
-    console.log(visit);
     this.selectedVisit = visit;
     this.displayModal = true;
   }

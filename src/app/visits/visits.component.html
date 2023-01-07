@@ -73,7 +73,16 @@
           {{ visit.customer.name + " " + visit.customer.surname }}
         </td>
         <td>
-          <span>{{ visit.animal ? visit.animal.name : "Nie przypisano" }}</span>
+          <div>
+            <p>
+              {{
+                visit.animal ? "Imię: " + visit.animal.name : "Nie przypisano"
+              }}
+            </p>
+            <span *ngIf="visit.animal">{{
+              "Rasa: " + visit.animal.specie
+            }}</span>
+          </div>
         </td>
         <td>
           {{ visit.visitDateTime | date : "dd/MM/yyyy HH:mm" }}

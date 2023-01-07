@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { AddAnimalModule } from './add-animal/add-animal.module';
 import { RippleModule } from 'primeng/ripple';
+import { AddVisitModule } from './add-visit/add-visit.module';
 
 @NgModule({
   declarations: [UsersComponent],
@@ -26,6 +27,7 @@ import { RippleModule } from 'primeng/ripple';
     ConfirmDialogModule,
     AddAnimalModule,
     RippleModule,
+    AddVisitModule,
   ],
   providers: [MessageService, ConfirmationService],
   exports: [UsersComponent],

@@ -3,6 +3,7 @@ import { apiUrl } from '../app.module';
 import { HttpClient } from '@angular/common/http';
 import { Visit } from '../models/visitModel';
 import { VisitEdit } from '../models/visitEditModel';
+import { VisitAdd } from '../models/visitAddModel';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,8 @@ export class VisitService {
     return this.httpClient.get<Visit[]>(apiUrl + '/Visits');
   }
 
-  addVisit(visitBody: VisitEdit) {
-    return this.httpClient.post<VisitEdit>(apiUrl + '/Visits', visitBody);
+  addVisit(visitBody: VisitAdd) {
+    return this.httpClient.post<VisitAdd>(apiUrl + '/Visits', visitBody);
   }
 
   updateVisit(visitId: number, visitBody: VisitEdit) {

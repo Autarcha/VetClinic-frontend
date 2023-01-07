@@ -71,7 +71,7 @@
             pRipple
             icon="pi pi-calendar-plus"
             class="p-button-rounded p-button-success me-2 position-static"
-            (click)="showAddAnimalModal(user)"
+            (click)="showAddVisitModal(user)"
           ></button>
           <button
             pButton
@@ -105,6 +105,12 @@
   (clickClose)="hideAddAnimalModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-animal>
+
+<app-add-visit
+  [displayAddVisitModal]="displayAddVisitModal"
+  (clickClose)="hideAddVisitModal($event)"
+  [selectedUser]="selectedUser"
+></app-add-visit>
 
 <p-toast position="top-right" key="myKey1"></p-toast>
 <p-confirmDialog
