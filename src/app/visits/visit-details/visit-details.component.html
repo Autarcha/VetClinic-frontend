@@ -1,0 +1,33 @@
+<div class="container p-5">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card p-4">
+        <h1 class="card-title">Informacje podstawowe</h1>
+        <h1>{{ visitId }}</h1>
+        <div class="card-body">
+          <form
+            class="col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12"
+            [formGroup]="visitDetailsForm"
+            (ngSubmit)="onSubmitDetails()"
+          >
+            <div class="text-center">
+              <button
+                type="submit"
+                class="btn btn-dark mt-4 form-control"
+                [disabled]="!visitDetailsForm.valid"
+              >
+                {{
+                  visitDetails
+                    ? "Aktualizuj szczegóły wizyty"
+                    : "Dodaj szczegóły wizyty"
+                }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-right" key="myKey2"></p-toast>

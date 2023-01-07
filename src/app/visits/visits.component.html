@@ -108,7 +108,9 @@
           </button>
         </td>
         <td>
-          <a href="*">Przejdź do szczegółów wizyty</a>
+          <a [routerLink]="['/visits', visit.id]"
+            >Przejdź do szczegółów wizyty</a
+          >
         </td>
         <td>
           <button
@@ -131,13 +133,3 @@
 ></app-edit-visit>
 
 <p-toast position="top-right" key="myKey1"></p-toast>
-<p-confirmDialog
-  header="Potwierdzenie"
-  acceptLabel="Tak"
-  rejectLabel="Nie"
-  icon="pi pi-exclamation-triangle"
-  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-  [style]="{ width: '50vw' }"
->
-  Content
-</p-confirmDialog>

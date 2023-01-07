@@ -30,7 +30,7 @@ export class LoginComponent {
   ) {}
 
   onSubmit() {
-    this.success = false;
+    this.success = true;
     this.userNotFound = false;
     this.userService
       .loginUser(
@@ -40,11 +40,12 @@ export class LoginComponent {
       .subscribe(
         (result) => {
           this.userLoggedIn.emit(result.body!);
-          this.success = true;
+          this.success = false;
           this.router.navigate(['/home']);
         },
         (error) => {
           if (error.status === 500) {
+            this.success = false;
             this.userNotFound = true;
           }
         }

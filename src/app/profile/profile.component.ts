@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserProfile } from '../models/userProfileModel';
 import { UserChangePassword } from '../models/userChangePasswordModel';
 import { ProfileService } from '../services/profile.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
@@ -16,13 +17,11 @@ export class ProfileComponent implements OnInit {
   userChangePassword: UserChangePassword = {};
   wrongConfirm: boolean = false;
   samePassword: boolean = false;
-  successChangePassword: boolean = false;
-  successUpdate: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private profileService: ProfileService,
-    private router: Router
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -84,12 +83,16 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmitDetails() {
-    this.successUpdate = false;
     this.profileService
       .updateUserProfile(this.userDetailsForm.value as UserProfile)
       .subscribe(
         (result) => {
-          this.successUpdate = true;
+          this.messageService.add({
+            key: 'myKey3',
+            severity: 'success',
+            summary: 'Sukces',
+            detail: 'Pomyśnie zaktualizowano dane',
+          });
           this.getUserProfile();
         },
         (error) => {}
@@ -97,7 +100,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmitPassword() {
-    this.successChangePassword = false;
     this.samePassword = false;
     this.wrongConfirm = false;
 
@@ -122,7 +124,12 @@ export class ProfileComponent implements OnInit {
     }
     this.profileService.changePassword(this.userChangePassword).subscribe(
       (response) => {
-        this.successChangePassword = true;
+        this.messageService.add({
+          key: 'myKey3',
+          severity: 'success',
+          summary: 'Sukces',
+          detail: 'Pomyśnie zmieniono hasło',
+        });
         this.changePasswordForm.reset();
       },
       (error) => {}

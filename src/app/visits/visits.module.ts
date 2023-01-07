@@ -11,9 +11,12 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
 import { EditVisitModule } from './edit-visit/edit-visit.module';
+import { VisitDetailsComponent } from './visit-details/visit-details.component';
+import { RouterLinkWithHref } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [VisitsComponent],
+  declarations: [VisitsComponent, VisitDetailsComponent],
   imports: [
     CommonModule,
     ButtonModule,
@@ -24,6 +27,8 @@ import { EditVisitModule } from './edit-visit/edit-visit.module';
     ConfirmDialogModule,
     RippleModule,
     EditVisitModule,
+    RouterLinkWithHref,
+    ReactiveFormsModule,
   ],
   providers: [MessageService, ConfirmationService],
   exports: [VisitsComponent],

@@ -7,6 +7,12 @@ import { VisitDetails } from '../models/visitDetailsModel';
   providedIn: 'root',
 })
 export class VisitDetailsService {
+  getVisitDetails(visitId: number) {
+    return this.httpClient.get<VisitDetails>(
+      apiUrl + '/visits/' + visitId + '/details'
+    );
+  }
+
   addVisitDetails(visitId: number, visitDetails: VisitDetails) {
     return this.httpClient.post<VisitDetails>(
       apiUrl + '/visits/' + visitId + '/details',
