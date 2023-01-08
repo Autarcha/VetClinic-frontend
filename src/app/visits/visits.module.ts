@@ -14,6 +14,8 @@ import { EditVisitModule } from './edit-visit/edit-visit.module';
 import { VisitDetailsComponent } from './visit-details/visit-details.component';
 import { RouterLinkWithHref } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [VisitsComponent, VisitDetailsComponent],
@@ -29,6 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditVisitModule,
     RouterLinkWithHref,
     ReactiveFormsModule,
+    InputTextareaModule,
+    InputNumberModule,
   ],
   providers: [MessageService, ConfirmationService],
   exports: [VisitsComponent],

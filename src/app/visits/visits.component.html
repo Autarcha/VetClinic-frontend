@@ -4,7 +4,7 @@
     [value]="visits"
     [rows]="10"
     [paginator]="true"
-    [tableStyle]="{ 'min-width': '100rem' }"
+    [tableStyle]="{ 'min-width': '85rem' }"
     [rowHover]="true"
   >
     <ng-template pTemplate="caption">
@@ -24,7 +24,6 @@
           Status wizyty<p-sortIcon field="visitStatus"></p-sortIcon>
         </th>
         <th>Szczegóły wizyty</th>
-        <th *ngIf="userRole !== 4"></th>
       </tr>
       <tr>
         <th>
@@ -61,7 +60,6 @@
         <th></th>
         <th></th>
         <th></th>
-        <th *ngIf="userRole !== 4"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-visit>
@@ -108,12 +106,16 @@
           </button>
         </td>
         <td>
-          <a [routerLink]="['/visits', visit.id]"
-            >Przejdź do szczegółów wizyty</a
-          >
-        </td>
-        <td *ngIf="userRole !== 4">
+          <a [routerLink]="['/visits', visit.id]">
+            <button
+              pButton
+              pRipple
+              icon="pi pi-info-circle"
+              class="p-button-rounded p-button-info me-2 position-static"
+            ></button
+          ></a>
           <button
+            *ngIf="userRole !== 4"
             pButton
             pRipple
             icon="pi pi-pencil"
