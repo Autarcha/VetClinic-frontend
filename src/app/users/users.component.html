@@ -58,7 +58,7 @@
         <td *ngFor="let col of cols">
           {{ user[col.field] }}
         </td>
-        <td>
+        <td *ngIf="userRole !== 4">
           <button
             pButton
             pRipple
@@ -71,7 +71,7 @@
             pRipple
             icon="pi pi-calendar-plus"
             class="p-button-rounded p-button-success me-2 position-static"
-            (click)="showAddAnimalModal(user)"
+            (click)="showAddVisitModal(user)"
           ></button>
           <button
             pButton
@@ -95,16 +95,25 @@
 </div>
 
 <app-add-edit-user
+  *ngIf="userRole !== 4"
   [displayAddEditUserModal]="displayAddEditUserModal"
   (clickClose)="hideAddEditUserModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-edit-user>
 
 <app-add-animal
+  *ngIf="userRole !== 4"
   [displayAddAnimalModal]="displayAddAnimalModal"
   (clickClose)="hideAddAnimalModal($event)"
   [selectedUser]="selectedUser"
 ></app-add-animal>
+
+<app-add-visit
+  *ngIf="userRole !== 4"
+  [displayAddVisitModal]="displayAddVisitModal"
+  (clickClose)="hideAddVisitModal($event)"
+  [selectedUser]="selectedUser"
+></app-add-visit>
 
 <p-toast position="top-right" key="myKey1"></p-toast>
 <p-confirmDialog

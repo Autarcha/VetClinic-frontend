@@ -75,7 +75,7 @@
             pRipple
             icon="pi pi-pencil"
             (click)="showEditModal(animal)"
-            class="p-button-rounded p-button-success me-2 position-static"
+            class="p-button-rounded p-button-warning me-2 position-static"
           ></button>
         </td>
       </tr>
@@ -84,19 +84,10 @@
 </div>
 
 <app-edit-animal
+  *ngIf="userRole !== 4"
   [displayModal]="displayModal"
   (clickClose)="hideEditModal($event)"
   [selectedAnimal]="selectedAnimal"
 ></app-edit-animal>
 
 <p-toast position="top-right" key="myKey1"></p-toast>
-<p-confirmDialog
-  header="Potwierdzenie"
-  acceptLabel="Tak"
-  rejectLabel="Nie"
-  icon="pi pi-exclamation-triangle"
-  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-  [style]="{ width: '50vw' }"
->
-  Content
-</p-confirmDialog>

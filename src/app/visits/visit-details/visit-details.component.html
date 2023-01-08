@@ -1,0 +1,145 @@
+<div class="container p-5">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card p-4">
+        <h1 class="card-title">Informacje na temat wizyty</h1>
+        <div class="card-body">
+          <div
+            class="noDetails col-lg-6 col-md-8 col-sm-10 col-12 m-auto mt-5 text-md-center"
+            *ngIf="!visitDetails && userRole === 4"
+          >
+            <h2>Nie przypisano jeszcze żadnych szczegółów do tej wizyty</h2>
+          </div>
+          <form
+            *ngIf="userRole !== 4 || visitDetails"
+            class="col-lg-6 col-md-8 col-sm-10 col-12"
+            [formGroup]="visitDetailsForm"
+            (ngSubmit)="onSubmitDetails()"
+          >
+            <div class="form-group mt-4">
+              <label for="visitPurpose">Cel wizyty</label>
+              <input
+                type="text"
+                name="visitPurpose"
+                class="form-control"
+                id="visitPurpose"
+                required
+                minlength="3"
+                formControlName="visitPurpose"
+              />
+              <div
+                *ngIf="
+                  !visitDetailsForm.controls['visitPurpose'].valid &&
+                  (visitDetailsForm.controls['visitPurpose'].dirty ||
+                    visitDetailsForm.controls['visitPurpose'].touched)
+                "
+              >
+                <div
+                  class="text-danger"
+                  *ngIf="visitDetailsForm.controls['visitPurpose'].errors?.['required']"
+                >
+                  Cel wizyty jest wymagany
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <label for="description">Opis wizyty</label>
+              <textarea
+                pInputTextarea
+                name="description"
+                id="description"
+                formControlName="description"
+                class="form-control"
+              ></textarea>
+              <div
+                *ngIf="
+                  !visitDetailsForm.controls['description'].valid &&
+                  (visitDetailsForm.controls['description'].dirty ||
+                    visitDetailsForm.controls['description'].touched)
+                "
+              >
+                <div
+                  class="text-danger"
+                  *ngIf="visitDetailsForm.controls['description'].errors?.['required']"
+                >
+                  Opis wizyty jest wymagany
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <label for="appliedDrugs">Podane lekarstwa</label>
+              <textarea
+                pInputTextarea
+                name="appliedDrugs"
+                id="appliedDrugs"
+                formControlName="appliedDrugs"
+                class="form-control"
+              ></textarea>
+            </div>
+            <div class="form-group mt-4">
+              <label for="prescription">Przepisane lekarstwa</label>
+              <textarea
+                pInputTextarea
+                name="prescription"
+                id="prescription"
+                formControlName="prescription"
+                class="form-control"
+              ></textarea>
+            </div>
+            <div class="form-group mt-4">
+              <label for="recommendations">Zalecenia lekarskie</label>
+              <textarea
+                pInputTextarea
+                name="recommendations"
+                id="recommendations"
+                formControlName="recommendations"
+                class="form-control"
+              ></textarea>
+            </div>
+            <div class="form-group mt-4">
+              <label for="bill">Rachunek za wizytę</label>
+              <br />
+              <p-inputNumber
+                name="bill"
+                id="bill"
+                formControlName="bill"
+                mode="currency"
+                currency="PLN"
+              ></p-inputNumber>
+              <div
+                *ngIf="
+                  !visitDetailsForm.controls['bill'].valid &&
+                  (visitDetailsForm.controls['bill'].dirty ||
+                    visitDetailsForm.controls['bill'].touched)
+                "
+              >
+                <div
+                  class="text-danger"
+                  *ngIf="visitDetailsForm.controls['bill'].errors?.['required']"
+                >
+                  Pole rachunek jest wymagane
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center" *ngIf="this.userRole !== 4">
+              <button
+                type="submit"
+                class="btn btn-dark mt-4 form-control"
+                [disabled]="!visitDetailsForm.valid"
+              >
+                {{
+                  visitDetails
+                    ? "Aktualizuj szczegóły wizyty"
+                    : "Dodaj szczegóły wizyty"
+                }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-right" key="myKey4"></p-toast>

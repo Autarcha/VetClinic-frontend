@@ -1,0 +1,126 @@
+<p-dialog
+  header="Edytuj informacje o wizycie"
+  [(visible)]="displayModal"
+  [style]="{ width: '50vw' }"
+  (onHide)="closeModal()"
+>
+  <form
+    class="col-lg-6 col-md-8 col-sm-10 col-12 m-auto"
+    [formGroup]="visitForm"
+    (ngSubmit)="editVisit()"
+  >
+    <div>
+      <label>Klient</label>
+
+      <p *ngIf="selectedVisit">
+        {{ selectedVisit.customer.name + " " + selectedVisit.customer.surname }}
+      </p>
+    </div>
+    <div class="form-group mt-4">
+      <label for="employeeId">Lekarz</label>
+      <select
+        formControlName="employeeId"
+        name="employeeId"
+        class="form-control"
+        id="employeeId"
+        type="number"
+      >
+        <option disabled>Wybierz lekarza</option>
+        <option *ngFor="let employee of employees" [value]="employee.id">
+          {{ employee.name + " " + employee.surname }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          !visitForm.controls['employeeId'].valid &&
+          (visitForm.controls['employeeId'].dirty ||
+            visitForm.controls['employeeId'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="visitForm.controls['employeeId'].errors?.['required']"
+        >
+          Pole pracownik jest wymagane
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="animalId">Zwierzę</label>
+      <select
+        formControlName="animalId"
+        name="animalId"
+        class="form-control"
+        id="animalId"
+        type="number"
+      >
+        <option disabled [ngValue]="null">Wybierz zwierzę</option>
+        <option *ngFor="let animal of customerAnimals" [value]="animal.id">
+          {{ "Imię: " + animal.name + " " + "Rasa: " + animal.specie }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group mt-4">
+      <label>Data wizyty</label>
+      <br />
+      <p-inputMask
+        mask="9999/99/99 99:99"
+        placeholder="1999/01/01 12:00"
+        slotChar="yyyy/mm/dd HH:mm"
+        formControlName="visitDateTime"
+      ></p-inputMask>
+      <div
+        *ngIf="
+          !visitForm.controls['visitDateTime'].valid &&
+          (visitForm.controls['visitDateTime'].dirty ||
+            visitForm.controls['visitDateTime'].touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="visitForm.controls['visitDateTime'].errors?.['required']"
+        >
+          Data wizyty jest wymagana
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="visitForm.controls['visitDateTime'].errors?.['pattern']"
+        >
+          Wprowadź prawidłową date. klinika jest czynna od godziny 10 do 20
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <label for="visitStatus">Status wizyty</label>
+      <select
+        formControlName="visitStatus"
+        name="visitStatus"
+        class="form-control"
+        id="visitStatus"
+        type="visitStatus"
+      >
+        <option disabled>Wybierz status wizyty</option>
+        <option *ngFor="let status of visitStatuses" [value]="status">
+          {{ visitStatusesMapping[status] }}
+        </option>
+      </select>
+    </div>
+    <div class="text-center">
+      <button
+        type="submit"
+        class="btn btn-dark mt-4 form-control"
+        [disabled]="!visitForm.valid"
+      >
+        Edytuj informacje
+      </button>
+    </div>
+  </form>
+  <p-button
+    iconPos="left"
+    class="mt-3"
+    icon="pi pi-check"
+    (click)="closeModal()"
+    label="Zakończ"
+    styleClass="p-button-text"
+  ></p-button>
+</p-dialog>

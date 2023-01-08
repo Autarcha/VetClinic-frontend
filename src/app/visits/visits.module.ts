@@ -1,35 +1,40 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { VisitsComponent } from './visits.component';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { AddEditUserModule } from './add-edit-user/add-edit-user.module';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { UsersComponent } from './users.component';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-import { AddAnimalModule } from './add-animal/add-animal.module';
 import { RippleModule } from 'primeng/ripple';
-import { AddVisitModule } from './add-visit/add-visit.module';
+import { EditVisitModule } from './edit-visit/edit-visit.module';
+import { VisitDetailsComponent } from './visit-details/visit-details.component';
+import { RouterLinkWithHref } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
-  declarations: [UsersComponent],
+  declarations: [VisitsComponent, VisitDetailsComponent],
   imports: [
     CommonModule,
     ButtonModule,
     DialogModule,
-    AddEditUserModule,
     ToastModule,
     TableModule,
     InputTextModule,
     ConfirmDialogModule,
-    AddAnimalModule,
     RippleModule,
-    AddVisitModule,
+    EditVisitModule,
+    RouterLinkWithHref,
+    ReactiveFormsModule,
+    InputTextareaModule,
+    InputNumberModule,
   ],
   providers: [MessageService, ConfirmationService],
-  exports: [UsersComponent],
+  exports: [VisitsComponent],
 })
-export class UsersModule {}
+export class VisitsModule {}
